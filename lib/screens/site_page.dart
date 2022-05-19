@@ -1,5 +1,6 @@
 import 'package:cg_proto2/models/site_model.dart';
 import 'package:cg_proto2/models/site_weather_model.dart';
+import 'package:cg_proto2/screens/settings_page.dart';
 import 'package:cg_proto2/widgets/site_quick_info.dart';
 import 'package:cg_proto2/widgets/site_weather_chart.dart';
 import 'package:flutter/material.dart';
@@ -14,12 +15,22 @@ class SitePage extends StatefulWidget {
 }
 
 class _SitePageState extends State<SitePage> {
-  int index = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.site.id),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SettingsPage(site: widget.site)),
+              );
+            },
+            icon: const Icon(Icons.settings),
+          ),
+        ],
       ),
       body: ListView(
         children: [

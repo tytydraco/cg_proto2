@@ -1,7 +1,10 @@
+import 'package:cg_proto2/models/site_model.dart';
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatefulWidget {
-  const SettingsPage({Key? key}) : super(key: key);
+  final SiteModel site;
+
+  const SettingsPage({Key? key, required this.site}) : super(key: key);
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();
