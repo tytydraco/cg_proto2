@@ -30,6 +30,24 @@ class _SitePageState extends State<SitePage> {
             site: widget.site,
             yFn: (SiteWeatherModel siteWeather) => siteWeather.temperature!,
           ),
+          SiteWeatherChart(
+            id: 'wind_speed',
+            title: 'Wind Speed',
+            site: widget.site,
+            yFn: (SiteWeatherModel siteWeather) => siteWeather.windSpeed!,
+          ),
+          SiteWeatherChart(
+            id: 'rainfall',
+            title: 'Rainfall',
+            site: widget.site,
+            yFn: (SiteWeatherModel siteWeather) => siteWeather.rainfall!,
+          ),
+          SiteWeatherChart(
+            id: 'soil_moisture',
+            title: 'Soil Moisture',
+            site: widget.site,
+            yFn: (SiteWeatherModel siteWeather) => siteWeather.soilMoisture!,
+          ),
         ],
       ),
     );

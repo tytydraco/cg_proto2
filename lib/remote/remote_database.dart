@@ -32,6 +32,7 @@ class RemoteDatabase implements RemoteDatabaseImplementation {
       rainfall: 0,
       windSpeed: 4,
       windDirection: 0,
+      soilMoisture: 25,
     );
   }
 
@@ -45,6 +46,7 @@ class RemoteDatabase implements RemoteDatabaseImplementation {
         rainfall: random.nextInt(20) + 1,
         windSpeed: random.nextInt(10) + 1,
         windDirection: random.nextInt(4),
+        soilMoisture: random.nextInt(100),
       );
     });
   }
