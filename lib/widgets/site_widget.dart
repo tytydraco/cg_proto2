@@ -10,9 +10,10 @@ class SiteWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      margin: const EdgeInsets.only(left: 8, right: 8, top: 8),
       child: InkWell(
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(18),
           child: Text(site.id)
         ),
         onTap: () {
