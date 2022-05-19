@@ -1,6 +1,6 @@
 class SiteModel {
-  final int id;
-  final String displayName;
+  /* With current schema, also happens to be our display name */
+  final String id;
 
-  SiteModel(this.id, this.displayName);
+  SiteModel(this.id);
 }

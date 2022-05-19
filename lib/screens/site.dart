@@ -19,7 +19,7 @@ class _SitePageState extends State<SitePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.site.displayName),
+        title: Text(widget.site.id),
       ),
       body: ListView(
         children: [

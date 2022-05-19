@@ -13,7 +13,7 @@ class SiteWidget extends StatelessWidget {
       child: InkWell(
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child: Text(site.displayName)
+          child: Text(site.id)
         ),
         onTap: () {
           Navigator.push(
