@@ -1,5 +1,6 @@
 import 'package:cg_proto2/models/site_model.dart';
 import 'package:cg_proto2/remote/remote_database.dart';
+import 'package:cg_proto2/widgets/site_widget.dart';
 import 'package:flutter/material.dart';
 
 class SiteListView extends StatefulWidget {
@@ -23,7 +24,7 @@ class _SiteListViewState extends State<SiteListView> {
             itemCount: siteList.length,
             itemBuilder: (context, index) {
               final site = siteList[index];
-              return Text('ID: ${site.id}; NAME: ${site.displayName}');
+              return SiteWidget(site: site);
             },
           );
         } else if (snapshot.hasError) {
