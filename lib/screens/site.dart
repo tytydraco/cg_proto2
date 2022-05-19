@@ -1,5 +1,7 @@
 import 'package:cg_proto2/models/site_model.dart';
+import 'package:cg_proto2/models/site_weather_model.dart';
 import 'package:cg_proto2/widgets/site_quick_info.dart';
+import 'package:cg_proto2/widgets/site_weather_chart.dart';
 import 'package:flutter/material.dart';
 
 class SitePage extends StatefulWidget {
@@ -12,6 +14,7 @@ class SitePage extends StatefulWidget {
 }
 
 class _SitePageState extends State<SitePage> {
+  int index = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,6 +24,11 @@ class _SitePageState extends State<SitePage> {
       body: ListView(
         children: [
           SiteQuickInfo(site: widget.site),
+          SiteWeatherChart(
+            id: 'temperature',
+            title: 'Temperature',
+            yFn: (SiteWeatherModel siteWeather) => siteWeather.temperature!,
+          ),
         ],
       ),
     );
