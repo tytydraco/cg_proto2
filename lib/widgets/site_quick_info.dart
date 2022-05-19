@@ -12,36 +12,71 @@ class SiteQuickInfo extends StatefulWidget {
   State<SiteQuickInfo> createState() => _SiteQuickInfoState();
 }
 
+class _PaddedNumCard extends StatelessWidget {
+  final String title;
+  final String text;
+
+  const _PaddedNumCard({Key? key, required this.title, required this.text}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Card(
+          child: SizedBox(
+            width: 50,
+            height: 50,
+            child: Center(
+              child: Text(text)
+            ),
+          ),
+        ),
+        Text(title),
+      ],
+    );
+  }
+}
+
 class _SiteQuickInfoState extends State<SiteQuickInfo> {
   final remoteDatabase = RemoteDatabase();
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-        child: FutureBuilder(
-          future: remoteDatabase.getCurrentWeather(widget.site),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              final siteWeather = snapshot.data as SiteWeatherModel;
-              return Padding(
-                padding: const EdgeInsets.all(32),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text("${siteWeather.temperature}"),
-                    Text("${siteWeather.rainfall}"),
-                    Text("${siteWeather.soilMoisture}"),
-                    Text("${siteWeather.humidity}"),
-                  ],
+    return FutureBuilder(
+      future: remoteDatabase.getCurrentWeather(widget.site),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final siteWeather = snapshot.data as SiteWeatherModel;
+          return Padding(
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _PaddedNumCard(
+                  title: 'Temp.',
+                  text: '${siteWeather.temperature}'
                 ),
-              );
-            } else if (snapshot.hasError) {
-              return const Text('Failed to fetch weather data!');
-            } else {
-              return const CircularProgressIndicator();
-            }
-          },
-        )
+                _PaddedNumCard(
+                  title: 'Rain.',
+                  text: '${siteWeather.rainfall}'
+                ),
+                _PaddedNumCard(
+                  title: 'Soil.',
+                  text: '${siteWeather.soilMoisture}'
+                ),
+                _PaddedNumCard(
+                  title: 'Humi.',
+                  text: '${siteWeather.humidity}'
+                ),
+              ],
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return const Text('Failed to fetch weather data!');
+        } else {
+          return const CircularProgressIndicator();
+        }
+      },
     );
   }
 }
