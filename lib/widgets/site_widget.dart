@@ -1,4 +1,5 @@
 import 'package:cg_proto2/models/site_model.dart';
+import 'package:cg_proto2/screens/site.dart';
 import 'package:flutter/material.dart';
 
 class SiteWidget extends StatefulWidget {
@@ -20,7 +21,10 @@ class _SiteWidgetState extends State<SiteWidget> {
           child: Text(widget.site.displayName)
         ),
         onTap: () {
-          // TODO: navigate to SitePage
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SitePage(site: widget.site))
+          );
         },
       ),
     );

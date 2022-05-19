@@ -1,9 +1,10 @@
+import 'package:cg_proto2/models/site_model.dart';
 import 'package:flutter/material.dart';
 
 class SitePage extends StatefulWidget {
-  const SitePage({Key? key, required this.title}) : super(key: key);
+  const SitePage({Key? key, required this.site}) : super(key: key);
 
-  final String title;
+  final SiteModel site;
 
   @override
   State<SitePage> createState() => _SitePageState();
@@ -14,7 +15,7 @@ class _SitePageState extends State<SitePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(widget.site.displayName),
       ),
       body: Center(),
     );
