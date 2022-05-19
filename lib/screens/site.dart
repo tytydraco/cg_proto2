@@ -27,6 +27,7 @@ class _SitePageState extends State<SitePage> {
           SiteWeatherChart(
             id: 'temperature',
             title: 'Temperature',
+            site: widget.site,
             yFn: (SiteWeatherModel siteWeather) => siteWeather.temperature!,
           ),
         ],

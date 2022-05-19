@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cg_proto2/models/site_model.dart';
 import 'package:cg_proto2/models/site_weather_model.dart';
 import 'package:cg_proto2/remote/remote_database_implementation.dart';
@@ -23,7 +25,7 @@ class RemoteDatabase implements RemoteDatabaseImplementation {
   }
 
   @override
-  Future<SiteWeatherModel> getWeather(SiteModel site) async {
+  Future<SiteWeatherModel> getCurrentWeather(SiteModel site) async {
     return SiteWeatherModel(
       temperature: 95,
       humidity: 22,
@@ -31,5 +33,19 @@ class RemoteDatabase implements RemoteDatabaseImplementation {
       windSpeed: 4,
       windDirection: 0,
     );
+  }
+
+  @override
+  Future<List<SiteWeatherModel>> getHistoricalWeather(SiteModel site) async {
+    final random = Random();
+    return List.generate(30, (_) {
+      return SiteWeatherModel(
+        temperature: 90 + random.nextInt(10) + 1,
+        humidity: random.nextInt(100) + 1,
+        rainfall: random.nextInt(20) + 1,
+        windSpeed: random.nextInt(10) + 1,
+        windDirection: random.nextInt(4),
+      );
+    });
   }
 }

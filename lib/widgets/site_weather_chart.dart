@@ -1,3 +1,4 @@
+import 'package:cg_proto2/models/site_model.dart';
 import 'package:cg_proto2/models/site_weather_model.dart';
 import 'package:cg_proto2/remote/remote_database.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 class SiteWeatherChart extends StatefulWidget {
   final String id;
   final String title;
+  final SiteModel site;
   final num Function(SiteWeatherModel) yFn;
   final List<SiteWeatherModel> Function(List<SiteWeatherModel>)? filterFn;
 
@@ -13,6 +15,7 @@ class SiteWeatherChart extends StatefulWidget {
     Key? key,
     required this.id,
     required this.title,
+    required this.site,
     required this.yFn,
     this.filterFn,
   }) : super(key: key);
@@ -24,12 +27,8 @@ class SiteWeatherChart extends StatefulWidget {
 class _SiteWeatherChartState extends State<SiteWeatherChart> {
   final remoteDatabase = RemoteDatabase();
 
-  Future<List<SiteWeatherModel>> getAllSiteWeathers() async {
-    final sites = await remoteDatabase.getEntries();
-    final List<SiteWeatherModel> siteWeathers = [];
-    for (var site in sites) {
-      siteWeathers.add(await remoteDatabase.getWeather(site));
-    }
+  Future<List<SiteWeatherModel>> getHistoricalWeatherFiltered() async {
+    final siteWeathers = await remoteDatabase.getHistoricalWeather(widget.site);
 
     if (widget.filterFn != null) {
       return widget.filterFn!(siteWeathers);
@@ -41,7 +40,7 @@ class _SiteWeatherChartState extends State<SiteWeatherChart> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: getAllSiteWeathers(),
+      future: getHistoricalWeatherFiltered(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final siteWeathers = snapshot.data as List<SiteWeatherModel>;

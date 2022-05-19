@@ -8,5 +8,8 @@ abstract class RemoteDatabaseImplementation {
   Future<List<SiteModel>> getEntries();
 
   /// Returns WeatherModel given a SiteModel
-  Future<SiteWeatherModel> getWeather(SiteModel site);
+  Future<SiteWeatherModel> getCurrentWeather(SiteModel site);
+
+  /// Returns list of all prior WeatherModels given a SiteModel
+  Future<List<SiteWeatherModel>> getHistoricalWeather(SiteModel site);
 }

@@ -19,7 +19,7 @@ class _SiteQuickInfoState extends State<SiteQuickInfo> {
   Widget build(BuildContext context) {
     return Card(
         child: FutureBuilder(
-          future: remoteDatabase.getWeather(widget.site),
+          future: remoteDatabase.getCurrentWeather(widget.site),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final siteWeather = snapshot.data as SiteWeatherModel;
