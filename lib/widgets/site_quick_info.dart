@@ -36,7 +36,7 @@ class _SiteQuickInfoState extends State<SiteQuickInfo> {
                 ),
               );
             } else if (snapshot.hasError) {
-              return const Text('Failed to fetch site list!');
+              return const Text('Failed to fetch weather data!');
             } else {
               return const CircularProgressIndicator();
             }
