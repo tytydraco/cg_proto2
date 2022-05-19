@@ -1,4 +1,5 @@
 import 'package:cg_proto2/models/site_model.dart';
+import 'package:cg_proto2/widgets/chart_visibility_checkbox.dart';
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -17,7 +18,30 @@ class _SettingsPageState extends State<SettingsPage> {
       appBar: AppBar(
         title: const Text('Site Settings'),
       ),
-      body: Center(),
+      body: ListView(
+        children: [
+          ChartVisibilityCheckbox(
+            site: widget.site,
+            id: 'temperature',
+            title: 'Temperature'
+          ),
+          ChartVisibilityCheckbox(
+            site: widget.site,
+            id: 'wind_speed',
+            title: 'Wind Speed'
+          ),
+          ChartVisibilityCheckbox(
+            site: widget.site,
+            id: 'rainfall',
+            title: 'Rainfall'
+          ),
+          ChartVisibilityCheckbox(
+            site: widget.site,
+            id: 'soil_moisture',
+            title: 'Soil Moisture'
+          ),
+        ],
+      ),
     );
   }
 }

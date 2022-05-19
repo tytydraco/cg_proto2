@@ -26,7 +26,7 @@ class _SitePageState extends State<SitePage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => SettingsPage(site: widget.site)),
-              );
+              ).whenComplete(() => setState(() {}));
             },
             icon: const Icon(Icons.settings),
           ),
