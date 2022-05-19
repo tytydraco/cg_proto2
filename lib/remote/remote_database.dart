@@ -1,4 +1,5 @@
 import 'package:cg_proto2/models/site_model.dart';
+import 'package:cg_proto2/models/site_weather_model.dart';
 import 'package:cg_proto2/remote/remote_database_implementation.dart';
 
 /// Actual implementation of RemoteDatabase
@@ -19,5 +20,16 @@ class RemoteDatabase implements RemoteDatabaseImplementation {
       SiteModel(10, 'Site 10'),
       SiteModel(11, 'Site 11'),
     ];
+  }
+
+  @override
+  Future<SiteWeatherModel> getWeather(SiteModel site) async {
+    return SiteWeatherModel(
+      temperature: 95,
+      humidity: 22,
+      rainfall: 0,
+      windSpeed: 4,
+      windDirection: 0,
+    );
   }
 }

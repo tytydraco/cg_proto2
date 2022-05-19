@@ -1,4 +1,5 @@
 import 'package:cg_proto2/models/site_model.dart';
+import 'package:cg_proto2/widgets/site_quick_info.dart';
 import 'package:flutter/material.dart';
 
 class SitePage extends StatefulWidget {
@@ -17,7 +18,11 @@ class _SitePageState extends State<SitePage> {
       appBar: AppBar(
         title: Text(widget.site.displayName),
       ),
-      body: Center(),
+      body: ListView(
+        children: [
+          SiteQuickInfo(site: widget.site),
+        ],
+      ),
     );
   }
 }
