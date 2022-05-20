@@ -1,4 +1,5 @@
 import 'package:cg_proto2/models/site_model.dart';
+import 'package:cg_proto2/widgets/chart_interval_dropdown.dart';
 import 'package:cg_proto2/widgets/chart_visibility_checkbox.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +21,7 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
       body: ListView(
         children: [
+          ChartIntervalDropDown(site: widget.site),
           ChartVisibilityCheckbox(
             site: widget.site,
             id: 'temperature',
