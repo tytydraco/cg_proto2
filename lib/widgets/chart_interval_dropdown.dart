@@ -2,7 +2,7 @@ import 'package:cg_proto2/models/site_model.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// SharedPreference schema is {site.id}_{id} of type bool
+/// SharedPreference schema is {site.id}_interval of type int
 class ChartIntervalDropDown extends StatefulWidget {
   final SiteModel site;
 
