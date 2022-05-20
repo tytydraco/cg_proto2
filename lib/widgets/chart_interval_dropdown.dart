@@ -1,3 +1,4 @@
+import 'package:cg_proto2/data/constants.dart';
 import 'package:cg_proto2/models/site_model.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,13 +17,9 @@ class ChartIntervalDropDown extends StatefulWidget {
 }
 
 class _ChartIntervalDropDownState extends State<ChartIntervalDropDown> {
-  final _intervals = [
-    7, 14, 21, 28
-  ];
-
   Future<int> getInterval() async {
     final sharedPrefs = await SharedPreferences.getInstance();
-    return sharedPrefs.getInt('${widget.site.id}_interval') ?? _intervals.last;
+    return sharedPrefs.getInt('${widget.site.id}_interval') ?? chartIntervalDefault;
   }
 
   Future setInterval(int newValue) async {
@@ -48,7 +45,7 @@ class _ChartIntervalDropDownState extends State<ChartIntervalDropDown> {
                   final interval = snapshot.data as int;
                   return DropdownButton<int>(
                     value: interval,
-                    items: _intervals.map((interval) =>
+                    items: chartIntervals.map((interval) =>
                       DropdownMenuItem<int>(
                         value: interval,
                         child: Text(interval.toString()),

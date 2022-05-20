@@ -1,9 +1,11 @@
+import 'package:cg_proto2/data/constants.dart';
 import 'package:cg_proto2/models/site_model.dart';
 import 'package:cg_proto2/models/site_weather_model.dart';
 import 'package:cg_proto2/remote/remote_database.dart';
 import 'package:cg_proto2/widgets/pref_visibility.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SiteWeatherChart extends StatefulWidget {
   final String id;
@@ -28,14 +30,21 @@ class SiteWeatherChart extends StatefulWidget {
 class _SiteWeatherChartState extends State<SiteWeatherChart> {
   final remoteDatabase = RemoteDatabase();
 
+  Future<int> daysToShow() async {
+    final sharedPrefs = await SharedPreferences.getInstance();
+    return sharedPrefs.getInt('${widget.site.id}_interval') ?? chartIntervalDefault;
+  }
+
   Future<List<SiteWeatherModel>> getHistoricalWeatherFiltered() async {
+    final length = await daysToShow();
     final siteWeathers = await remoteDatabase.getHistoricalWeather(widget.site);
+    final reducedSiteWeathers = siteWeathers.reversed.take(length).toList();
 
     if (widget.filterFn != null) {
-      return widget.filterFn!(siteWeathers);
+      return widget.filterFn!(reducedSiteWeathers);
     }
 
-    return siteWeathers;
+    return reducedSiteWeathers;
   }
 
   Widget leftTitleWidget(double value, TitleMeta? _) {
