@@ -1,0 +1,50 @@
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class LoginSaveCheckbox extends StatefulWidget {
+  const LoginSaveCheckbox({Key? key}) : super(key: key);
+
+  @override
+  State<LoginSaveCheckbox> createState() => _LoginSaveCheckboxState();
+}
+
+class _LoginSaveCheckboxState extends State<LoginSaveCheckbox> {
+  Future<bool> getChecked() async {
+    final sharedPrefs = await SharedPreferences.getInstance();
+    return sharedPrefs.getBool('save_credentials') ?? false;
+  }
+
+  Future setChecked(bool newState) async {
+    final sharedPrefs = await SharedPreferences.getInstance();
+    sharedPrefs.setBool('save_credentials', newState);
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        FutureBuilder(
+          initialData: false,
+          future: getChecked(),
+          builder: (context, snapshot) {
+            final checked = snapshot.data as bool;
+            if (snapshot.hasData) {
+              return Checkbox(
+                value: checked,
+                onChanged: (state) {
+                  setChecked(state!);
+                  setState(() {});
+                }
+              );
+            } else if (snapshot.hasError) {
+              return const Icon(Icons.warning);
+            } else {
+              return const CircularProgressIndicator();
+            }
+          },
+        ),
+        const Text('Save credentials'),
+      ],
+    );
+  }
+}

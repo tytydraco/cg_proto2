@@ -1,5 +1,6 @@
 import 'package:cg_proto2/models/credential_model.dart';
 import 'package:cg_proto2/remote/remote_auth.dart';
+import 'package:cg_proto2/widgets/login_save_checkbox.dart';
 import 'package:flutter/material.dart';
 
 class LoginWidget extends StatefulWidget {
@@ -64,6 +65,10 @@ class _LoginWidgetState extends State<LoginWidget> {
             onPressed: () => attemptLogin(),
             child: const Text('Login'),
           ),
+        ),
+        const Padding(
+          padding: EdgeInsets.all(16),
+          child: LoginSaveCheckbox(),
         ),
       ],
     );
