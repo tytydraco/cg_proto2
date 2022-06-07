@@ -17,8 +17,11 @@ class LoginWidget extends StatefulWidget {
 }
 
 class _LoginWidgetState extends State<LoginWidget> {
-  var username = '';
-  var password = '';
+  String username = '';
+  String password = '';
+
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
 
   void attemptLogin() async {
     final remoteAuth = RemoteAuth();
@@ -28,6 +31,10 @@ class _LoginWidgetState extends State<LoginWidget> {
     if (success) {
       widget.onSuccess();
     } else {
+      passwordController.clear();
+      setState(() {
+        password = '';
+      });
       widget.onFailed();
     }
   }
@@ -37,12 +44,14 @@ class _LoginWidgetState extends State<LoginWidget> {
     return Column(
       children: [
         TextFormField(
+          controller: usernameController,
           decoration: const InputDecoration(
             hintText: 'Username'
           ),
           onChanged: (String value) => username = value,
         ),
         TextFormField(
+          controller: passwordController,
           decoration: const InputDecoration(
               hintText: 'Password'
           ),

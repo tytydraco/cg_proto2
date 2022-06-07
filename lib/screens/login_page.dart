@@ -10,6 +10,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  bool hadError = false;
+  
   void goHome() {
     Navigator.push(
       context,
@@ -25,11 +27,29 @@ class _LoginPageState extends State<LoginPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(32),
-        child: LoginWidget(
-          onSuccess: () => goHome(),
-          onFailed: () {
-            // TODO: handle error message
-          },
+        child: Column(
+          children: [
+            Visibility(
+              visible: hadError,
+              child: const Text(
+                'Authentication failed; please try again',
+                style: TextStyle(
+                  color: Colors.red,
+                ),
+              ),
+            ),
+            LoginWidget(
+              onSuccess: () {
+                hadError = false;
+                goHome();
+              },
+              onFailed: () {
+                setState(() {
+                  hadError = true;
+                });
+              },
+            ),
+          ]
         )
       ),
     );
