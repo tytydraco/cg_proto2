@@ -1,4 +1,5 @@
 import 'package:cg_proto2/screens/home_page.dart';
+import 'package:cg_proto2/widgets/login_widget.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -18,6 +19,19 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Login'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(32),
+        child: LoginWidget(
+          onSuccess: () => goHome(),
+          onFailed: () {
+            // TODO: handle error message
+          },
+        )
+      ),
+    );
   }
 }
