@@ -15,7 +15,9 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('Community Gardens'),
       ),
-      body: const SiteListView(),
+      body: const Center(
+        child: SiteListView()
+      ),
     );
   }
 }
