@@ -67,9 +67,13 @@ class _LoginWidgetState extends State<LoginWidget> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     importSavedCredentials();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         TextFormField(
