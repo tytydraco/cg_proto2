@@ -9,6 +9,7 @@ import 'package:cg_proto2/remote/remote_database_implementation.dart';
 class RemoteDatabase implements RemoteDatabaseImplementation {
   @override
   Future<List<SiteModel>> getEntries() async {
+    await Future.delayed(const Duration(seconds: 1));
     return [
       SiteModel('Site 1'),
       SiteModel('Site 2'),
@@ -26,6 +27,7 @@ class RemoteDatabase implements RemoteDatabaseImplementation {
 
   @override
   Future<SiteWeatherModel> getCurrentWeather(SiteModel site) async {
+    await Future.delayed(const Duration(seconds: 1));
     return SiteWeatherModel(
       temperature: 95,
       humidity: 22,
@@ -38,6 +40,7 @@ class RemoteDatabase implements RemoteDatabaseImplementation {
 
   @override
   Future<List<SiteWeatherModel>> getHistoricalWeather(SiteModel site) async {
+    await Future.delayed(const Duration(seconds: 1));
     final random = Random();
     return List.generate(30, (_) {
       return SiteWeatherModel(
