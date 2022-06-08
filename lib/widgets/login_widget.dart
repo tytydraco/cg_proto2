@@ -61,7 +61,6 @@ class _LoginWidgetState extends State<LoginWidget> {
       }
       widget.onSuccess();
     } else {
-      passwordController.clear();
       putSavedCredentials(CredentialModel('', ''));
       widget.onFailed();
     }
