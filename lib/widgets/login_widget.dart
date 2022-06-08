@@ -1,5 +1,6 @@
 import 'package:cg_proto2/models/credential_model.dart';
 import 'package:cg_proto2/remote/remote_auth.dart';
+import 'package:cg_proto2/widgets/loading_spinner.dart';
 import 'package:cg_proto2/widgets/login_save_checkbox.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,6 +20,8 @@ class LoginWidget extends StatefulWidget {
 }
 
 class _LoginWidgetState extends State<LoginWidget> {
+  bool tryingAuthentication = false;
+
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -50,17 +53,23 @@ class _LoginWidgetState extends State<LoginWidget> {
   }
 
   Future attemptLogin() async {
+    setState(() => tryingAuthentication = true);
+
     final remoteAuth = RemoteAuth();
     final credential = CredentialModel(usernameController.text, passwordController.text);
     final success = await remoteAuth.checkCredentials(credential);
 
+    setState(() => tryingAuthentication = false);
     if (success) {
       final saveCredentials = await shouldSaveCredentials();
       if (saveCredentials) {
         putSavedCredentials(credential);
       }
+
       widget.onSuccess();
     } else {
+      usernameController.text = '';
+      passwordController.text = '';
       putSavedCredentials(CredentialModel('', ''));
       widget.onFailed();
     }
@@ -74,29 +83,33 @@ class _LoginWidgetState extends State<LoginWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TextFormField(
-          controller: usernameController,
-          decoration: const InputDecoration(hintText: 'Username'),
-        ),
-        TextFormField(
-          controller: passwordController,
-          decoration: const InputDecoration(hintText: 'Password'),
-          obscureText: true,
-        ),
-        Padding(
-          padding: const EdgeInsets.all(16),
-          child: OutlinedButton(
-            onPressed: () => attemptLogin(),
-            child: const Text('Login'),
+    if (!tryingAuthentication) {
+      return Column(
+        children: [
+          TextFormField(
+            controller: usernameController,
+            decoration: const InputDecoration(hintText: 'Username'),
           ),
-        ),
-        const Padding(
-          padding: EdgeInsets.all(16),
-          child: LoginSaveCheckbox(),
-        ),
-      ],
-    );
+          TextFormField(
+            controller: passwordController,
+            decoration: const InputDecoration(hintText: 'Password'),
+            obscureText: true,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: OutlinedButton(
+              onPressed: () => attemptLogin(),
+              child: const Text('Login'),
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.all(16),
+            child: LoginSaveCheckbox(),
+          ),
+        ],
+      );
+    } else {
+      return const LoadingSpinner();
+    }
   }
 }
