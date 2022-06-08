@@ -19,9 +19,6 @@ class LoginWidget extends StatefulWidget {
 }
 
 class _LoginWidgetState extends State<LoginWidget> {
-  String username = '';
-  String password = '';
-
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -43,21 +40,18 @@ class _LoginWidgetState extends State<LoginWidget> {
     return CredentialModel(savedUsername, savedPassword);
   }
 
-  Future updateCredentials() async {
+  Future importSavedCredentials() async {
     final saveCredentials = await shouldSaveCredentials();
     if (saveCredentials) {
       final savedCredentials = await getSavedCredentials();
       usernameController.text = savedCredentials.username;
       passwordController.text = savedCredentials.password;
-
-      username = savedCredentials.username;
-      password = savedCredentials.password;
     }
   }
 
   Future attemptLogin() async {
     final remoteAuth = RemoteAuth();
-    final credential = CredentialModel(username, password);
+    final credential = CredentialModel(usernameController.text, passwordController.text);
     final success = await remoteAuth.checkCredentials(credential);
 
     if (success) {
@@ -68,33 +62,25 @@ class _LoginWidgetState extends State<LoginWidget> {
       widget.onSuccess();
     } else {
       passwordController.clear();
-      setState(() {
-        password = '';
-      });
+      putSavedCredentials(CredentialModel('', ''));
       widget.onFailed();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    updateCredentials();
+    importSavedCredentials();
 
     return Column(
       children: [
         TextFormField(
           controller: usernameController,
-          decoration: const InputDecoration(
-            hintText: 'Username'
-          ),
-          onChanged: (String value) => username = value,
+          decoration: const InputDecoration(hintText: 'Username'),
         ),
         TextFormField(
           controller: passwordController,
-          decoration: const InputDecoration(
-              hintText: 'Password'
-          ),
+          decoration: const InputDecoration(hintText: 'Password'),
           obscureText: true,
-          onChanged: (String value) => password = value,
         ),
         Padding(
           padding: const EdgeInsets.all(16),
