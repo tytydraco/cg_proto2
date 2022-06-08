@@ -57,7 +57,7 @@ class _LoginWidgetState extends State<LoginWidget> {
     if (success) {
       final saveCredentials = await shouldSaveCredentials();
       if (saveCredentials) {
-        await putSavedCredentials(credential);
+        putSavedCredentials(credential);
       }
       widget.onSuccess();
     } else {
