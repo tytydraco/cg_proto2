@@ -1,4 +1,5 @@
 import 'package:cg_proto2/models/site_model.dart';
+import 'package:cg_proto2/widgets/loading_spinner.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -56,7 +57,7 @@ class _ChartVisibilityCheckboxState extends State<ChartVisibilityCheckbox> {
                 } else if (snapshot.hasError) {
                   return const Icon(Icons.warning);
                 } else {
-                  return const CircularProgressIndicator();
+                  return const LoadingSpinner();
                 }
               },
             ),

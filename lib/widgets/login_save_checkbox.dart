@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cg_proto2/widgets/loading_spinner.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginSaveCheckbox extends StatefulWidget {
@@ -39,7 +40,7 @@ class _LoginSaveCheckboxState extends State<LoginSaveCheckbox> {
             } else if (snapshot.hasError) {
               return const Icon(Icons.warning);
             } else {
-              return const CircularProgressIndicator();
+              return const LoadingSpinner();
             }
           },
         ),

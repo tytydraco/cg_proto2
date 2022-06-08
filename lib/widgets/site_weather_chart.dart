@@ -3,6 +3,7 @@ import 'package:cg_proto2/models/site_model.dart';
 import 'package:cg_proto2/models/site_weather_model.dart';
 import 'package:cg_proto2/remote/remote_database.dart';
 import 'package:cg_proto2/widgets/pref_visibility.dart';
+import 'package:cg_proto2/widgets/loading_spinner.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -119,7 +120,7 @@ class _SiteWeatherChartState extends State<SiteWeatherChart> {
           } else if (snapshot.hasError) {
             return const Text('Failed to fetch weather data!');
           } else {
-            return const CircularProgressIndicator();
+            return const LoadingSpinner();
           }
         },
       ),

@@ -1,6 +1,7 @@
 import 'package:cg_proto2/models/site_model.dart';
 import 'package:cg_proto2/models/site_weather_model.dart';
 import 'package:cg_proto2/remote/remote_database.dart';
+import 'package:cg_proto2/widgets/loading_spinner.dart';
 import 'package:flutter/material.dart';
 
 class SiteQuickInfo extends StatefulWidget {
@@ -74,7 +75,7 @@ class _SiteQuickInfoState extends State<SiteQuickInfo> {
         } else if (snapshot.hasError) {
           return const Text('Failed to fetch weather data!');
         } else {
-          return const CircularProgressIndicator();
+          return const LoadingSpinner();
         }
       },
     );

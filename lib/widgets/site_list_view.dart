@@ -1,6 +1,7 @@
 import 'package:cg_proto2/models/site_model.dart';
 import 'package:cg_proto2/remote/remote_database.dart';
 import 'package:cg_proto2/widgets/site_widget.dart';
+import 'package:cg_proto2/widgets/loading_spinner.dart';
 import 'package:flutter/material.dart';
 
 class SiteListView extends StatefulWidget {
@@ -30,7 +31,7 @@ class _SiteListViewState extends State<SiteListView> {
         } else if (snapshot.hasError) {
           return const Text('Failed to fetch site list!');
         } else {
-          return const CircularProgressIndicator();
+          return const LoadingSpinner();
         }
       },
     );
