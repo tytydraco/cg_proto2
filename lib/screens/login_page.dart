@@ -1,4 +1,5 @@
 import 'package:cg_proto2/screens/home_page.dart';
+import 'package:cg_proto2/widgets/login_error_text.dart';
 import 'package:cg_proto2/widgets/login_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -11,13 +12,6 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool hadError = false;
-  
-  void goHome() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const HomePage()),
-    ).whenComplete(() => setState(() {}));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,24 +23,17 @@ class _LoginPageState extends State<LoginPage> {
         padding: const EdgeInsets.all(32),
         child: Column(
           children: [
-            Visibility(
-              visible: hadError,
-              child: const Text(
-                'Authentication failed; please try again',
-                style: TextStyle(
-                  color: Colors.red,
-                ),
-              ),
-            ),
+            LoginErrorText(show: hadError),
             LoginWidget(
               onSuccess: () {
                 hadError = false;
-                goHome();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomePage()),
+                ).whenComplete(() => setState(() {}));
               },
               onFailed: () {
-                setState(() {
-                  hadError = true;
-                });
+                setState(() => hadError = true);
               },
             ),
           ]
