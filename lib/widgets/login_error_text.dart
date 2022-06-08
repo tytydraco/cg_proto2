@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class LoginErrorText extends StatelessWidget {
-  final show;
+  final bool show;
 
   const LoginErrorText({
     Key? key,
