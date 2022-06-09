@@ -1,6 +1,7 @@
 import 'package:cg_proto2/models/site_model.dart';
 import 'package:cg_proto2/models/site_weather_model.dart';
 import 'package:cg_proto2/remote/remote_database.dart';
+import 'package:cg_proto2/widgets/number_card_widget.dart';
 import 'package:cg_proto2/widgets/loading_spinner.dart';
 import 'package:flutter/material.dart';
 
@@ -12,31 +13,6 @@ class SiteQuickInfo extends StatefulWidget {
 
   @override
   State<SiteQuickInfo> createState() => _SiteQuickInfoState();
-}
-
-class _PaddedNumCard extends StatelessWidget {
-  final String title;
-  final String text;
-
-  const _PaddedNumCard({Key? key, required this.title, required this.text}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Card(
-          child: SizedBox(
-            width: 50,
-            height: 50,
-            child: Center(
-              child: Text(text)
-            ),
-          ),
-        ),
-        Text(title),
-      ],
-    );
-  }
 }
 
 class _SiteQuickInfoState extends State<SiteQuickInfo> {
@@ -54,19 +30,19 @@ class _SiteQuickInfoState extends State<SiteQuickInfo> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _PaddedNumCard(
+                NumberCardWidget(
                   title: 'Temp.',
                   text: '${siteWeather.temperature}'
                 ),
-                _PaddedNumCard(
+                NumberCardWidget(
                   title: 'Rain.',
                   text: '${siteWeather.rainfall}'
                 ),
-                _PaddedNumCard(
+                NumberCardWidget(
                   title: 'Soil.',
                   text: '${siteWeather.soilMoisture}'
                 ),
-                _PaddedNumCard(
+                NumberCardWidget(
                   title: 'Humi.',
                   text: '${siteWeather.humidity}'
                 ),
