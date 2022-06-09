@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// A circular progress spinner with consistent spacing and alignment.
 class LoadingSpinner extends StatelessWidget {
   const LoadingSpinner({Key? key}) : super(key: key);
 

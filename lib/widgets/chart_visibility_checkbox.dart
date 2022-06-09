@@ -3,7 +3,8 @@ import 'package:cg_proto2/widgets/loading_spinner.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// SharedPreference schema is {site.id}_{id} of type bool
+/// A checkbox that determines the visibility of a chart.
+/// SharedPreference schema is {site.id}_{id} of type bool.
 class ChartVisibilityCheckbox extends StatefulWidget {
   final SiteModel site;
   final String id;

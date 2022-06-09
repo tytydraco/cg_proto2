@@ -3,6 +3,7 @@ import 'package:cg_proto2/widgets/login_error_text.dart';
 import 'package:cg_proto2/widgets/login_widget.dart';
 import 'package:flutter/material.dart';
 
+/// Displays username and password authentication dialog.
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -11,6 +12,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  /// Is true if the user failed to login.
   bool hadError = false;
 
   @override

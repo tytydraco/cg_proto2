@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cg_proto2/widgets/loading_spinner.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// A Visibility widget based on a SharedPreference key
+/// A container to show or hide a widget based on a SharedPreference boolean.
 class PrefVisibility extends StatefulWidget {
   final String prefKey;
   final Widget child;

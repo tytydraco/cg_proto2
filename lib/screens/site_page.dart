@@ -5,6 +5,7 @@ import 'package:cg_proto2/widgets/site_quick_info.dart';
 import 'package:cg_proto2/widgets/site_weather_chart.dart';
 import 'package:flutter/material.dart';
 
+/// Displays relevant information about a particular site.
 class SitePage extends StatefulWidget {
   const SitePage({Key? key, required this.site}) : super(key: key);
 

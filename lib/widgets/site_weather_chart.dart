@@ -8,6 +8,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// A chart to display historical sensor data for a particular site.
 class SiteWeatherChart extends StatefulWidget {
   final String id;
   final String title;

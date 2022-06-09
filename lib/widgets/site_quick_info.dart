@@ -4,6 +4,7 @@ import 'package:cg_proto2/remote/remote_database.dart';
 import 'package:cg_proto2/widgets/loading_spinner.dart';
 import 'package:flutter/material.dart';
 
+/// A row that displays the current sensor data for a specific site.
 class SiteQuickInfo extends StatefulWidget {
   final SiteModel site;
 

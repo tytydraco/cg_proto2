@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cg_proto2/widgets/loading_spinner.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// A checkbox that determines whether or not we save previously-authenticated credentials.
 class LoginSaveCheckbox extends StatefulWidget {
   const LoginSaveCheckbox({Key? key}) : super(key: key);
 

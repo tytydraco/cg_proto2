@@ -2,6 +2,7 @@ import 'package:cg_proto2/models/site_model.dart';
 import 'package:cg_proto2/screens/site_page.dart';
 import 'package:flutter/material.dart';
 
+/// A clickable card to open the data screen for a particular site.
 class SiteWidget extends StatelessWidget {
   final SiteModel site;
 

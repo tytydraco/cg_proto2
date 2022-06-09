@@ -1,6 +1,7 @@
 import 'package:cg_proto2/widgets/site_list_view.dart';
 import 'package:flutter/material.dart';
 
+/// Displays the list of all sites.
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 

@@ -5,6 +5,7 @@ import 'package:cg_proto2/widgets/login_save_checkbox.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// A dialog that handles user authentication with the remote server.
 class LoginWidget extends StatefulWidget {
   final Function onSuccess;
   final Function onFailed;
@@ -30,17 +31,17 @@ class _LoginWidgetState extends State<LoginWidget> {
     return sharedPrefs.getBool('save_credentials') ?? false;
   }
 
-  Future putSavedCredentials(CredentialModel credentials) async {
-    final sharedPrefs = await SharedPreferences.getInstance();
-    sharedPrefs.setString('saved_username', credentials.username);
-    sharedPrefs.setString('saved_password', credentials.password);
-  }
-
   Future<CredentialModel> getSavedCredentials() async {
     final sharedPrefs = await SharedPreferences.getInstance();
     final savedUsername = sharedPrefs.getString('saved_username') ?? '';
     final savedPassword = sharedPrefs.getString('saved_password') ?? '';
     return CredentialModel(savedUsername, savedPassword);
+  }
+
+  Future setSavedCredentials(CredentialModel credentials) async {
+    final sharedPrefs = await SharedPreferences.getInstance();
+    sharedPrefs.setString('saved_username', credentials.username);
+    sharedPrefs.setString('saved_password', credentials.password);
   }
 
   Future importSavedCredentials() async {
@@ -63,14 +64,14 @@ class _LoginWidgetState extends State<LoginWidget> {
     if (success) {
       final saveCredentials = await shouldSaveCredentials();
       if (saveCredentials) {
-        putSavedCredentials(credential);
+        setSavedCredentials(credential);
       }
 
       widget.onSuccess();
     } else {
       usernameController.text = '';
       passwordController.text = '';
-      putSavedCredentials(CredentialModel('', ''));
+      setSavedCredentials(CredentialModel('', ''));
       widget.onFailed();
     }
   }

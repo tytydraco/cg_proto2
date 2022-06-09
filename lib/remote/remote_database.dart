@@ -4,8 +4,7 @@ import 'package:cg_proto2/models/site_model.dart';
 import 'package:cg_proto2/models/site_weather_model.dart';
 import 'package:cg_proto2/remote/remote_database_implementation.dart';
 
-/// Actual implementation of RemoteDatabase
-/// TODO: connect this to live database
+/// Offline demo implementation of the remote database using sample data.
 class RemoteDatabase implements RemoteDatabaseImplementation {
   @override
   Future<List<SiteModel>> getEntries() async {

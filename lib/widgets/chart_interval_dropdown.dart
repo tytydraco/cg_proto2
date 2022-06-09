@@ -4,7 +4,8 @@ import 'package:cg_proto2/widgets/loading_spinner.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// SharedPreference schema is {site.id}_interval of type int
+/// A drop-down list of valid chart history intervals.
+/// The SharedPreference schema is {site.id}_interval of type int.
 class ChartIntervalDropDown extends StatefulWidget {
   final SiteModel site;
 

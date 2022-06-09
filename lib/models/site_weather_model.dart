@@ -1,3 +1,4 @@
+/// A data structure that stores the sensor information for a specific site.
 class SiteWeatherModel {
   final int? temperature;
   final int? windSpeed;

@@ -4,6 +4,7 @@ import 'package:cg_proto2/widgets/site_widget.dart';
 import 'package:cg_proto2/widgets/loading_spinner.dart';
 import 'package:flutter/material.dart';
 
+/// A list of clickable sites.
 class SiteListView extends StatefulWidget {
   const SiteListView({Key? key}) : super(key: key);
 

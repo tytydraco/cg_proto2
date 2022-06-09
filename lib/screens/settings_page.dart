@@ -3,6 +3,7 @@ import 'package:cg_proto2/widgets/chart_interval_dropdown.dart';
 import 'package:cg_proto2/widgets/chart_visibility_checkbox.dart';
 import 'package:flutter/material.dart';
 
+/// Displays site-specific settings.
 class SettingsPage extends StatefulWidget {
   final SiteModel site;
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// A text box that displays an error message caused by a failed login attempt.
 class LoginErrorText extends StatelessWidget {
   final bool show;
 
