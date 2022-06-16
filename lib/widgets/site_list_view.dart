@@ -13,7 +13,7 @@ class SiteListView extends StatefulWidget {
 }
 
 class _SiteListViewState extends State<SiteListView> {
-  final remoteDatabase = RemoteDatabase();
+  final remoteDatabase = DemoRemoteDatabase();
 
   @override
   Widget build(BuildContext context) {

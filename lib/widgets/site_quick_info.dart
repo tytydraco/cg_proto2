@@ -16,7 +16,7 @@ class SiteQuickInfo extends StatefulWidget {
 }
 
 class _SiteQuickInfoState extends State<SiteQuickInfo> {
-  final remoteDatabase = RemoteDatabase();
+  final remoteDatabase = DemoRemoteDatabase();
 
   @override
   Widget build(BuildContext context) {

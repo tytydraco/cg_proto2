@@ -56,7 +56,7 @@ class _LoginWidgetState extends State<LoginWidget> {
   Future attemptLogin() async {
     setState(() => tryingAuthentication = true);
 
-    final remoteAuth = RemoteAuth();
+    final remoteAuth = DemoRemoteAuth();
     final credential = CredentialModel(usernameController.text, passwordController.text);
     final success = await remoteAuth.checkCredentials(credential);
 

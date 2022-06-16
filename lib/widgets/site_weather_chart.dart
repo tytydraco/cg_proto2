@@ -30,7 +30,7 @@ class SiteWeatherChart extends StatefulWidget {
 }
 
 class _SiteWeatherChartState extends State<SiteWeatherChart> {
-  final remoteDatabase = RemoteDatabase();
+  final remoteDatabase = DemoRemoteDatabase();
 
   Future<int> daysToShow() async {
     final sharedPrefs = await SharedPreferences.getInstance();
