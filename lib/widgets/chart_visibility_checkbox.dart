@@ -38,31 +38,25 @@ class _ChartVisibilityCheckboxState extends State<ChartVisibilityCheckbox> {
       margin: const EdgeInsets.only(left: 8, right: 8, top: 8),
       child: Padding(
         padding: const EdgeInsets.all(8),
-        child: Row(
-          children: [
-            Expanded(
-              child: Text(widget.title),
-            ),
-            FutureBuilder(
-              future: getChecked(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  final checked = snapshot.data as bool;
-                  return Checkbox(
-                    value: checked,
-                    onChanged: (newValue) {
-                      setChecked(newValue!);
-                      setState(() {});
-                    }
-                  );
-                } else if (snapshot.hasError) {
-                  return const Icon(Icons.warning);
-                } else {
-                  return const LoadingSpinner();
+        child: FutureBuilder(
+          future: getChecked(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              final checked = snapshot.data as bool;
+              return CheckboxListTile(
+                title: Text(widget.title),
+                value: checked,
+                onChanged: (newValue) {
+                  setChecked(newValue!);
+                  setState(() {});
                 }
-              },
-            ),
-          ],
+              );
+            } else if (snapshot.hasError) {
+              return const Icon(Icons.warning);
+            } else {
+              return const LoadingSpinner();
+            }
+          },
         ),
       ),
     );
