@@ -21,6 +21,7 @@ class LoginWidget extends StatefulWidget {
 }
 
 class _LoginWidgetState extends State<LoginWidget> {
+  final formKey = GlobalKey<FormState>();
   bool tryingAuthentication = false;
 
   final usernameController = TextEditingController();
@@ -54,25 +55,28 @@ class _LoginWidgetState extends State<LoginWidget> {
   }
 
   Future attemptLogin() async {
-    setState(() => tryingAuthentication = true);
+    if (formKey.currentState!.validate()) {
+      setState(() => tryingAuthentication = true);
 
-    final remoteAuth = DemoRemoteAuth();
-    final credential = CredentialModel(usernameController.text, passwordController.text);
-    final success = await remoteAuth.checkCredentials(credential);
+      final remoteAuth = DemoRemoteAuth();
+      final credential = CredentialModel(
+          usernameController.text, passwordController.text);
+      final success = await remoteAuth.checkCredentials(credential);
 
-    setState(() => tryingAuthentication = false);
-    if (success) {
-      final saveCredentials = await shouldSaveCredentials();
-      if (saveCredentials) {
-        setSavedCredentials(credential);
+      setState(() => tryingAuthentication = false);
+      if (success) {
+        final saveCredentials = await shouldSaveCredentials();
+        if (saveCredentials) {
+          setSavedCredentials(credential);
+        }
+
+        widget.onSuccess();
+      } else {
+        usernameController.text = '';
+        passwordController.text = '';
+        setSavedCredentials(CredentialModel('', ''));
+        widget.onFailed();
       }
-
-      widget.onSuccess();
-    } else {
-      usernameController.text = '';
-      passwordController.text = '';
-      setSavedCredentials(CredentialModel('', ''));
-      widget.onFailed();
     }
   }
 
@@ -85,29 +89,44 @@ class _LoginWidgetState extends State<LoginWidget> {
   @override
   Widget build(BuildContext context) {
     if (!tryingAuthentication) {
-      return Column(
-        children: [
-          TextFormField(
-            controller: usernameController,
-            decoration: const InputDecoration(hintText: 'Username'),
-          ),
-          TextFormField(
-            controller: passwordController,
-            decoration: const InputDecoration(hintText: 'Password'),
-            obscureText: true,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: OutlinedButton(
-              onPressed: () => attemptLogin(),
-              child: const Text('Login'),
+      return Form(
+        key: formKey,
+        child: Column(
+          children: [
+            TextFormField(
+              controller: usernameController,
+              decoration: const InputDecoration(hintText: 'Username'),
+              validator: (text) {
+                if (text == null || text.isEmpty) {
+                  return 'Username cannot be empty';
+                }
+                return null;
+              },
             ),
-          ),
-          const Padding(
-            padding: EdgeInsets.all(16),
-            child: LoginSaveCheckbox(),
-          ),
-        ],
+            TextFormField(
+              controller: passwordController,
+              decoration: const InputDecoration(hintText: 'Password'),
+              obscureText: true,
+              validator: (text) {
+                if (text == null || text.isEmpty) {
+                  return 'Password cannot be empty';
+                }
+                return null;
+              },
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: OutlinedButton(
+                onPressed: () => attemptLogin(),
+                child: const Text('Login'),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.all(16),
+              child: LoginSaveCheckbox(),
+            ),
+          ],
+        ),
       );
     } else {
       return const LoadingSpinner();
