@@ -1,8 +1,12 @@
+import 'package:cg_proto2/data/constants.dart';
 import 'package:cg_proto2/models/site_model.dart';
 import 'package:cg_proto2/models/site_weather_model.dart';
+import 'package:cg_proto2/remote/remote_database.dart';
+import 'package:cg_proto2/widgets/loading_spinner.dart';
 import 'package:cg_proto2/widgets/site_quick_info.dart';
 import 'package:cg_proto2/widgets/site_weather_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SiteAllDataList extends StatefulWidget {
   final SiteModel site;
@@ -17,36 +21,65 @@ class SiteAllDataList extends StatefulWidget {
 }
 
 class _SiteAllDataListState extends State<SiteAllDataList> {
+  final remoteDatabase = DemoRemoteDatabase();
+
+  Future<int> daysToShow() async {
+    final sharedPrefs = await SharedPreferences.getInstance();
+    return sharedPrefs.getInt('${widget.site.id}_interval') ?? chartIntervalDefault;
+  }
+
+  Future<List<SiteWeatherModel>> getHistoricalWeather() async {
+    final length = await daysToShow();
+    final siteWeathers = await remoteDatabase.getHistoricalWeather(widget.site);
+    return siteWeathers.reversed.take(length).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        SiteQuickInfo(site: widget.site),
-        SiteWeatherChart(
-          id: 'temperature',
-          title: 'Temperature',
-          site: widget.site,
-          yFn: (SiteWeatherModel siteWeather) => siteWeather.temperature!.toDouble(),
-        ),
-        SiteWeatherChart(
-          id: 'wind_speed',
-          title: 'Wind Speed',
-          site: widget.site,
-          yFn: (SiteWeatherModel siteWeather) => siteWeather.windSpeed!.toDouble(),
-        ),
-        SiteWeatherChart(
-          id: 'rainfall',
-          title: 'Rainfall',
-          site: widget.site,
-          yFn: (SiteWeatherModel siteWeather) => siteWeather.rainfall!.toDouble(),
-        ),
-        SiteWeatherChart(
-          id: 'soil_moisture',
-          title: 'Soil Moisture',
-          site: widget.site,
-          yFn: (SiteWeatherModel siteWeather) => siteWeather.soilMoisture!.toDouble(),
-        ),
-      ],
+    return FutureBuilder(
+      future: getHistoricalWeather(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final data = snapshot.data as List<SiteWeatherModel>;
+          return ListView(
+            children: [
+              SiteQuickInfo(site: widget.site),
+              SiteWeatherChart(
+                id: 'temperature',
+                title: 'Temperature',
+                site: widget.site,
+                yFn: (SiteWeatherModel siteWeather) => siteWeather.temperature!.toDouble(),
+                data: data,
+              ),
+              SiteWeatherChart(
+                id: 'wind_speed',
+                title: 'Wind Speed',
+                site: widget.site,
+                yFn: (SiteWeatherModel siteWeather) => siteWeather.windSpeed!.toDouble(),
+                data: data,
+              ),
+              SiteWeatherChart(
+                id: 'rainfall',
+                title: 'Rainfall',
+                site: widget.site,
+                yFn: (SiteWeatherModel siteWeather) => siteWeather.rainfall!.toDouble(),
+                data: data,
+              ),
+              SiteWeatherChart(
+                id: 'soil_moisture',
+                title: 'Soil Moisture',
+                site: widget.site,
+                yFn: (SiteWeatherModel siteWeather) => siteWeather.soilMoisture!.toDouble(),
+                data: data,
+              ),
+            ],
+          );
+        } else if (snapshot.hasError) {
+          return const Text('Cannot fetch site data!');
+        } else {
+          return const LoadingSpinner();
+        }
+      },
     );
   }
 }
