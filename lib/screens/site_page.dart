@@ -1,9 +1,6 @@
 import 'package:cg_proto2/models/site_model.dart';
-import 'package:cg_proto2/models/site_weather_model.dart';
 import 'package:cg_proto2/screens/settings_page.dart';
 import 'package:cg_proto2/widgets/site_all_data_list.dart';
-import 'package:cg_proto2/widgets/site_quick_info.dart';
-import 'package:cg_proto2/widgets/site_weather_chart.dart';
 import 'package:flutter/material.dart';
 
 /// Displays relevant information about a particular site.

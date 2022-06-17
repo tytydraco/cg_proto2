@@ -43,7 +43,11 @@ class _SiteAllDataListState extends State<SiteAllDataList> {
           final data = snapshot.data as List<SiteWeatherModel>;
           return ListView(
             children: [
-              SiteQuickInfo(site: widget.site),
+              // NOTE: Uses last entry in historical data as current data...
+              SiteQuickInfo(
+                site: widget.site,
+                siteWeather: data.last,
+              ),
               SiteWeatherChart(
                 id: 'temperature',
                 title: 'Temperature',
