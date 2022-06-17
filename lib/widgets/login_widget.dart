@@ -93,26 +93,38 @@ class _LoginWidgetState extends State<LoginWidget> {
         key: formKey,
         child: Column(
           children: [
-            TextFormField(
-              controller: usernameController,
-              decoration: const InputDecoration(hintText: 'Username'),
-              validator: (text) {
-                if (text == null || text.isEmpty) {
-                  return 'Username cannot be empty';
-                }
-                return null;
-              },
+            Padding(
+              padding: const EdgeInsets.only(top: 4, bottom: 4),
+              child: TextFormField(
+                controller: usernameController,
+                decoration: const InputDecoration(
+                  hintText: 'Username',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (text) {
+                  if (text == null || text.isEmpty) {
+                    return 'Username cannot be empty';
+                  }
+                  return null;
+                },
+              ),
             ),
-            TextFormField(
-              controller: passwordController,
-              decoration: const InputDecoration(hintText: 'Password'),
-              obscureText: true,
-              validator: (text) {
-                if (text == null || text.isEmpty) {
-                  return 'Password cannot be empty';
-                }
-                return null;
-              },
+            Padding(
+              padding: const EdgeInsets.only(top: 4, bottom: 4),
+              child: TextFormField(
+                controller: passwordController,
+                decoration: const InputDecoration(
+                  hintText: 'Password',
+                  border: OutlineInputBorder(),
+                ),
+                obscureText: true,
+                validator: (text) {
+                  if (text == null || text.isEmpty) {
+                    return 'Password cannot be empty';
+                  }
+                  return null;
+                },
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(16),
