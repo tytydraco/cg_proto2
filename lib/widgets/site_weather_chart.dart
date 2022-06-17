@@ -55,6 +55,10 @@ class _SiteWeatherChartState extends State<SiteWeatherChart> {
 
   @override
   Widget build(BuildContext context) {
+    final lineColor = Theme.of(context).brightness == Brightness.light
+        ? Colors.black
+        : Colors.white;
+
     return PrefVisibility(
       prefKey: '${widget.site.id}_${widget.id}',
       child: FutureBuilder(
@@ -96,7 +100,7 @@ class _SiteWeatherChartState extends State<SiteWeatherChart> {
                             isStrokeCapRound: true,
                             barWidth: 3,
                             belowBarData: BarAreaData(show: false),
-                            color: Colors.black,
+                            color: lineColor,
                           ),
                         ],
                         titlesData: FlTitlesData(
