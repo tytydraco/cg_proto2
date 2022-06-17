@@ -23,30 +23,26 @@ class _LoginSaveCheckboxState extends State<LoginSaveCheckbox> {
   
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        FutureBuilder(
-          initialData: false,
-          future: getChecked(),
-          builder: (context, snapshot) {
-            final checked = snapshot.data as bool;
-            if (snapshot.hasData) {
-              return Checkbox(
-                value: checked,
-                onChanged: (state) {
-                  setChecked(state!);
-                  setState(() {});
-                }
-              );
-            } else if (snapshot.hasError) {
-              return const Icon(Icons.warning);
-            } else {
-              return const LoadingSpinner();
+    return FutureBuilder(
+      initialData: false,
+      future: getChecked(),
+      builder: (context, snapshot) {
+        final checked = snapshot.data as bool;
+        if (snapshot.hasData) {
+          return CheckboxListTile(
+            title: const Text('Save credentials'),
+            value: checked,
+            onChanged: (state) {
+              setChecked(state!);
+              setState(() {});
             }
-          },
-        ),
-        const Text('Save credentials'),
-      ],
+          );
+        } else if (snapshot.hasError) {
+          return const Icon(Icons.warning);
+        } else {
+          return const LoadingSpinner();
+        }
+      },
     );
   }
 }
