@@ -1,5 +1,6 @@
 import 'package:cg_proto2/models/site_model.dart';
 import 'package:cg_proto2/remote/database/remote_database.dart';
+import 'package:cg_proto2/remote/logic/site_assembler.dart';
 import 'package:cg_proto2/widgets/site_widget.dart';
 import 'package:cg_proto2/widgets/loading_spinner.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ class SiteListView extends StatefulWidget {
 }
 
 class _SiteListViewState extends State<SiteListView> {
+  final siteAssembler = SiteAssembler();
   final remoteDatabase = DemoRemoteDatabase();
 
   @override
@@ -21,7 +23,8 @@ class _SiteListViewState extends State<SiteListView> {
       future: remoteDatabase.getEntries(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          final siteList = snapshot.data as List<SiteModel>;
+          final rawSiteList = snapshot.data as List<Map<String, dynamic>>;
+          final siteList = siteAssembler.getEntries(rawSiteList);
           return ListView.builder(
             itemCount: siteList.length,
             itemBuilder: (context, index) {

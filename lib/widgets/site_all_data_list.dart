@@ -2,6 +2,7 @@ import 'package:cg_proto2/data/constants.dart';
 import 'package:cg_proto2/models/site_model.dart';
 import 'package:cg_proto2/models/site_weather_model.dart';
 import 'package:cg_proto2/remote/database/remote_database.dart';
+import 'package:cg_proto2/remote/logic/site_assembler.dart';
 import 'package:cg_proto2/widgets/loading_spinner.dart';
 import 'package:cg_proto2/widgets/site_quick_info.dart';
 import 'package:cg_proto2/widgets/site_weather_chart.dart';
@@ -21,6 +22,7 @@ class SiteAllDataList extends StatefulWidget {
 }
 
 class _SiteAllDataListState extends State<SiteAllDataList> {
+  final siteAssembler = SiteAssembler();
   final remoteDatabase = DemoRemoteDatabase();
 
   Future<int> daysToShow() async {
@@ -30,7 +32,8 @@ class _SiteAllDataListState extends State<SiteAllDataList> {
 
   Future<List<SiteWeatherModel>> getHistoricalWeather() async {
     final length = await daysToShow();
-    final siteWeathers = await remoteDatabase.getHistoricalWeather(widget.site);
+    final rawSiteWeathers = await remoteDatabase.getHistoricalWeather(widget.site.id);
+    final siteWeathers = siteAssembler.getHistoricalWeather(rawSiteWeathers);
     return siteWeathers.reversed.take(length).toList();
   }
 
