@@ -1,5 +1,5 @@
 import 'package:cg_proto2/models/credential_model.dart';
-import 'package:cg_proto2/remote/remote_auth.dart';
+import 'package:cg_proto2/remote/auth/remote_auth.dart';
 import 'package:cg_proto2/widgets/loading_spinner.dart';
 import 'package:cg_proto2/widgets/login_save_checkbox.dart';
 import 'package:flutter/material.dart';

@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:cg_proto2/models/site_model.dart';
 import 'package:cg_proto2/models/site_weather_model.dart';
-import 'package:cg_proto2/remote/remote_database_implementation.dart';
+import 'package:cg_proto2/remote/database/remote_database_implementation.dart';
 
 /// Offline demo implementation of the remote database using sample data.
 class DemoRemoteDatabase implements RemoteDatabaseImplementation {
