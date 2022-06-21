@@ -11,7 +11,7 @@ class SiteWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.only(left: 8, right: 8, top: 8),
+      margin: const EdgeInsets.only(left: 8, right: 8, top: 4, bottom: 4),
       child: InkWell(
         child: Padding(
           padding: const EdgeInsets.all(18),

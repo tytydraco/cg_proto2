@@ -25,6 +25,7 @@ class _SiteListViewState extends State<SiteListView> {
           final rawSiteList = snapshot.data as List<Map<String, dynamic>>;
           final siteList = siteAssembler.getEntries(rawSiteList);
           return ListView.builder(
+            padding: const EdgeInsets.only(top: 4, bottom: 4),
             itemCount: siteList.length,
             itemBuilder: (context, index) {
               final site = siteList[index];
