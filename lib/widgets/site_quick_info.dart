@@ -43,8 +43,12 @@ class _SiteQuickInfoState extends State<SiteQuickInfo> {
               text: '${widget.siteWeather.soilMoisture}'
           ),
           NumberCardWidget(
-              title: 'Humi.',
-              text: '${widget.siteWeather.humidity}'
+              title: 'Wind Sp.',
+              text: '${widget.siteWeather.windSpeed}'
+          ),
+          NumberCardWidget(
+              title: 'Wind Di.',
+              text: '${widget.siteWeather.windDirection}'
           ),
         ],
       ),
