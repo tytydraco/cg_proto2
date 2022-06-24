@@ -1,7 +1,7 @@
 import 'package:cg_proto2/data/constants.dart';
 import 'package:cg_proto2/models/site_model.dart';
 import 'package:cg_proto2/models/site_weather_model.dart';
-import 'package:cg_proto2/remote/database/remote_database.dart';
+import 'package:cg_proto2/remote/database/demo_remote_database.dart';
 import 'package:cg_proto2/remote/logic/site_assembler.dart';
 import 'package:cg_proto2/widgets/loading_spinner.dart';
 import 'package:cg_proto2/widgets/site_quick_info.dart';

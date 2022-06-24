@@ -1,4 +1,4 @@
-import 'package:cg_proto2/remote/database/remote_database.dart';
+import 'package:cg_proto2/remote/database/demo_remote_database.dart';
 import 'package:cg_proto2/remote/logic/site_assembler.dart';
 import 'package:cg_proto2/widgets/site_widget.dart';
 import 'package:cg_proto2/widgets/loading_spinner.dart';
