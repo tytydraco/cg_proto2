@@ -3,6 +3,7 @@ import 'package:cg_proto2/models/site_weather_model.dart';
 import 'package:cg_proto2/widgets/pref_visibility.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 /// A chart to display historical sensor data for a particular site.
 class SiteWeatherChart extends StatefulWidget {
@@ -26,19 +27,39 @@ class SiteWeatherChart extends StatefulWidget {
 }
 
 class _SiteWeatherChartState extends State<SiteWeatherChart> {
+  late final Color primaryColor = Theme.of(context).brightness == Brightness.light
+      ? Colors.white
+      : Colors.black;
+  final todaysDate = DateTime.now();
+
   Widget leftTitleWidget(double value, TitleMeta? _) {
-    return Text(value.toInt().toString());
+    return Text(
+      value.toInt().toString(),
+      style: TextStyle(
+        color: primaryColor,
+      ),
+    );
+  }
+
+  Widget bottomTitleWidget(double value, TitleMeta? _) {
+    final thisDate = todaysDate.subtract(Duration(days: widget.data.length - value.toInt()));
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Text(
+        DateFormat('M/d').format(thisDate),
+        style: TextStyle(
+          color: primaryColor,
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    final lineColor = Theme.of(context).brightness == Brightness.light
-        ? Colors.black
-        : Colors.white;
-
     return PrefVisibility(
       prefKey: '${widget.site.id}_${widget.id}',
       child: Card(
+        color: Colors.blueGrey.shade400,
         margin: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
         child: Padding(
           padding: const EdgeInsets.all(8),
@@ -46,13 +67,15 @@ class _SiteWeatherChartState extends State<SiteWeatherChart> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Align(
-                alignment: Alignment.centerLeft,
+                alignment: Alignment.center,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 18, right: 18),
+                  padding: const EdgeInsets.only(top: 4, bottom: 4),
                   child: Text(
                     widget.title,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: primaryColor,
                     ),
                   ),
                 ),
@@ -75,7 +98,7 @@ class _SiteWeatherChartState extends State<SiteWeatherChart> {
                           isStrokeCapRound: true,
                           barWidth: 3,
                           belowBarData: BarAreaData(show: false),
-                          color: lineColor,
+                          color: primaryColor,
                         ),
                       ],
                       titlesData: FlTitlesData(
@@ -87,10 +110,19 @@ class _SiteWeatherChartState extends State<SiteWeatherChart> {
                             reservedSize: 40,
                           ),
                         ),
-                        bottomTitles: AxisTitles(),
+                        bottomTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            getTitlesWidget: bottomTitleWidget,
+                            reservedSize: 40,
+                          ),
+                        ),
                         rightTitles: AxisTitles(),
                       ),
                       borderData: FlBorderData(show: false),
+                      gridData: FlGridData(
+                        show: false,
+                      )
                     ),
                   ),
                 ),
