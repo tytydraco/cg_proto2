@@ -14,6 +14,9 @@ class MyApp extends StatelessWidget {
       title: 'Community Gardens',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        appBarTheme: const AppBarTheme(
+          centerTitle: true,
+        ),
       ),
       darkTheme: ThemeData(
         primarySwatch: Colors.blue,
