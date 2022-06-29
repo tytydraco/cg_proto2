@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cg_proto2/models/site_model.dart';
 import 'package:cg_proto2/models/site_weather_model.dart';
 import 'package:cg_proto2/widgets/pref_visibility.dart';
@@ -42,16 +44,23 @@ class _SiteWeatherChartState extends State<SiteWeatherChart> {
   }
 
   Widget bottomTitleWidget(double value, TitleMeta? _) {
-    final thisDate = todaysDate.subtract(Duration(days: widget.data.length - value.toInt()));
     return Align(
       alignment: Alignment.bottomCenter,
-      child: Text(
-        DateFormat('M/d').format(thisDate),
-        style: TextStyle(
-          color: primaryColor,
+      child: Transform.rotate(
+        angle: -pi / 4,
+        child: Text(
+          _dateFromDayIndex(value.toInt()),
+          style: TextStyle(
+            color: primaryColor,
+          ),
         ),
       ),
     );
+  }
+
+  String _dateFromDayIndex(int index) {
+    final thisDate = todaysDate.subtract(Duration(days: widget.data.length - index));
+    return DateFormat('M/d').format(thisDate);
   }
 
   @override
@@ -86,6 +95,20 @@ class _SiteWeatherChartState extends State<SiteWeatherChart> {
                   aspectRatio: 2.5,
                   child: LineChart(
                     LineChartData(
+                      lineTouchData: LineTouchData(
+                        touchTooltipData: LineTouchTooltipData(
+                          getTooltipItems: (List<LineBarSpot> spots) {
+                            return [
+                              LineTooltipItem(
+                                '${spots.first.y.toString()}\n${_dateFromDayIndex(spots.first.x.toInt())}',
+                                TextStyle(
+                                  color: primaryColor,
+                                ),
+                              ),
+                            ];
+                          }
+                        )
+                      ),
                       lineBarsData: [
                         LineChartBarData(
                           spots: widget.data.asMap().entries.map((entry) {
@@ -122,7 +145,7 @@ class _SiteWeatherChartState extends State<SiteWeatherChart> {
                       borderData: FlBorderData(show: false),
                       gridData: FlGridData(
                         show: false,
-                      )
+                      ),
                     ),
                   ),
                 ),
