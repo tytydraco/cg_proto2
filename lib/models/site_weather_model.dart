@@ -2,7 +2,7 @@
 class SiteWeatherModel {
   final int? temperature;
   final int? windSpeed;
-  final int? windDirection;
+  final String? windDirection;
   final int? rainfall;
   final int? soilMoisture;
   final int? humidity;
