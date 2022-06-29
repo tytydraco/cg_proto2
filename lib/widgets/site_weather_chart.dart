@@ -29,10 +29,8 @@ class SiteWeatherChart extends StatefulWidget {
 }
 
 class _SiteWeatherChartState extends State<SiteWeatherChart> {
-  late final Color primaryColor = Theme.of(context).brightness == Brightness.light
-      ? Colors.white
-      : Colors.black;
-  final todaysDate = DateTime.now();
+  final Color primaryColor = Colors.white;
+  final todayDate = DateTime.now();
 
   Widget leftTitleWidget(double value, TitleMeta? _) {
     return Text(
@@ -59,7 +57,7 @@ class _SiteWeatherChartState extends State<SiteWeatherChart> {
   }
 
   String _dateFromDayIndex(int index) {
-    final thisDate = todaysDate.subtract(Duration(days: widget.data.length - index));
+    final thisDate = todayDate.subtract(Duration(days: widget.data.length - index));
     return DateFormat('M/d').format(thisDate);
   }
 
@@ -71,14 +69,14 @@ class _SiteWeatherChartState extends State<SiteWeatherChart> {
         color: Colors.blueGrey.shade400,
         margin: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
         child: Padding(
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.all(0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Align(
                 alignment: Alignment.center,
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 4, bottom: 4),
+                  padding: const EdgeInsets.only(top: 12, bottom: 4),
                   child: Text(
                     widget.title,
                     style: TextStyle(
@@ -90,7 +88,7 @@ class _SiteWeatherChartState extends State<SiteWeatherChart> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(24),
+                padding: const EdgeInsets.all(18),
                 child: AspectRatio(
                   aspectRatio: 2.5,
                   child: LineChart(

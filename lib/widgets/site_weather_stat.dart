@@ -5,6 +5,8 @@ class SiteWeatherStat extends StatelessWidget {
   final String text;
   final String? unit;
 
+  final textColor = Colors.white;
+
   const SiteWeatherStat({
     Key? key,
     required this.title,
@@ -14,9 +16,6 @@ class SiteWeatherStat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textColor = Theme.of(context).brightness == Brightness.light ?
-        Colors.white :
-        Colors.black;
     final contentText = unit == null ? text : '$text $unit';
     return Padding(
       padding: const EdgeInsets.only(left: 8, right: 8, top: 4, bottom: 4),
