@@ -38,60 +38,66 @@ class _SiteWeatherChartState extends State<SiteWeatherChart> {
 
     return PrefVisibility(
       prefKey: '${widget.site.id}_${widget.id}',
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 18, right: 18),
-              child: Text(
-                widget.title,
-                style: const TextStyle(
-                    fontWeight: FontWeight.bold
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(24),
-            child: AspectRatio(
-              aspectRatio: 2.5,
-              child: LineChart(
-                LineChartData(
-                  lineBarsData: [
-                    LineChartBarData(
-                      spots: widget.data.asMap().entries.map((entry) {
-                        final index = entry.key;
-                        final siteWeather = entry.value;
-                        return FlSpot(index.toDouble(), widget.yFn(siteWeather));
-                      }).toList(),
-                      dotData: FlDotData(show: false),
-                      isCurved: true,
-                      isStrokeCapRound: true,
-                      barWidth: 3,
-                      belowBarData: BarAreaData(show: false),
-                      color: lineColor,
+      child: Card(
+        margin: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 18, right: 18),
+                  child: Text(
+                    widget.title,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold
                     ),
-                  ],
-                  titlesData: FlTitlesData(
-                    topTitles: AxisTitles(),
-                    leftTitles: AxisTitles(
-                      sideTitles: SideTitles(
-                        showTitles: true,
-                        getTitlesWidget: leftTitleWidget,
-                        reservedSize: 40,
-                      ),
-                    ),
-                    bottomTitles: AxisTitles(),
-                    rightTitles: AxisTitles(),
                   ),
-                  borderData: FlBorderData(show: false),
                 ),
               ),
-            ),
+              Padding(
+                padding: const EdgeInsets.all(24),
+                child: AspectRatio(
+                  aspectRatio: 2.5,
+                  child: LineChart(
+                    LineChartData(
+                      lineBarsData: [
+                        LineChartBarData(
+                          spots: widget.data.asMap().entries.map((entry) {
+                            final index = entry.key;
+                            final siteWeather = entry.value;
+                            return FlSpot(index.toDouble(), widget.yFn(siteWeather));
+                          }).toList(),
+                          dotData: FlDotData(show: false),
+                          isCurved: true,
+                          isStrokeCapRound: true,
+                          barWidth: 3,
+                          belowBarData: BarAreaData(show: false),
+                          color: lineColor,
+                        ),
+                      ],
+                      titlesData: FlTitlesData(
+                        topTitles: AxisTitles(),
+                        leftTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            getTitlesWidget: leftTitleWidget,
+                            reservedSize: 40,
+                          ),
+                        ),
+                        bottomTitles: AxisTitles(),
+                        rightTitles: AxisTitles(),
+                      ),
+                      borderData: FlBorderData(show: false),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       )
     );
   }
