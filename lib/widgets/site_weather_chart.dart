@@ -39,7 +39,7 @@ class _SiteWeatherChartState extends State<SiteWeatherChart> {
     return PrefVisibility(
       prefKey: '${widget.site.id}_${widget.id}',
       child: Card(
-        margin: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+        margin: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
         child: Padding(
           padding: const EdgeInsets.all(8),
           child: Column(

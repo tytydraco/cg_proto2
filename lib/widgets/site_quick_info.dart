@@ -23,7 +23,7 @@ class _SiteQuickInfoState extends State<SiteQuickInfo> {
   Widget build(BuildContext context) {
     return Card(
       color: Colors.indigo,
-      margin: const EdgeInsets.all(16),
+      margin: const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 16),
       child: Padding(
         padding: const EdgeInsets.all(8),
         child: Column(
