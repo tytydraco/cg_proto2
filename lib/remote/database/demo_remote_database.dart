@@ -1,12 +1,18 @@
 import 'dart:math';
 
+import 'package:artificial_delay/artificial_delay.dart';
 import 'package:cg_proto2/remote/database/remote_database_implementation.dart';
 
 /// Offline demo implementation of the remote database using sample data.
 class DemoRemoteDatabase implements RemoteDatabaseImplementation {
+  final _artificialDelay = ArtificialDelay(
+    minDelay: const Duration(milliseconds: 100),
+    maxDelay: const Duration(milliseconds: 1000),
+  );
+
   @override
   Future<List<Map<String, dynamic>>> getEntries() async {
-    await Future.delayed(const Duration(seconds: 1));
+    await _artificialDelay.trigger();
     return List.generate(20, (index) => {
       'name': 'Site ${index + 1}'
     });
@@ -14,7 +20,7 @@ class DemoRemoteDatabase implements RemoteDatabaseImplementation {
 
   @override
   Future<Map<String, dynamic>> getCurrentWeather(String siteName) async {
-    await Future.delayed(const Duration(seconds: 1));
+    await _artificialDelay.trigger();
     return {
       'temperature': 95,
       'humidity': 22,
@@ -27,7 +33,7 @@ class DemoRemoteDatabase implements RemoteDatabaseImplementation {
 
   @override
   Future<List<Map<String, dynamic>>> getHistoricalWeather(String siteName) async {
-    await Future.delayed(const Duration(seconds: 1));
+    await _artificialDelay.trigger();
     final random = Random();
     return List.generate(30, (_) {
       return {
