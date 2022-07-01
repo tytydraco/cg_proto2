@@ -24,6 +24,7 @@ class _LoginPageState extends State<LoginPage> {
       body: Padding(
         padding: const EdgeInsets.all(32),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             LoginErrorText(show: hadError),
             CustomLoginWidget(

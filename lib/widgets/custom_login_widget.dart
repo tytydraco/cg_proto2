@@ -92,44 +92,49 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
   @override
   Widget build(BuildContext context) {
     if (!tryingAuthentication) {
-      return Column(
-        children: [
-          LoginWidget(
-            form: LoginFormWidget(
-              formKey: formKey,
-              loginFields: [
-                LoginFieldWidget(
-                  controller: usernameController,
-                  hintText: 'Username',
-                  autofocus: true,
-                  validator: (text) {
-                    if (text == null || text.isEmpty) {
-                      return 'Username cannot be empty';
-                    }
-                    return null;
-                  },
+      return Center(
+        child: Container(
+          constraints: const BoxConstraints(maxWidth: 300),
+          child: Column(
+            children: [
+              LoginWidget(
+                form: LoginFormWidget(
+                  formKey: formKey,
+                  loginFields: [
+                    LoginFieldWidget(
+                      controller: usernameController,
+                      hintText: 'Username',
+                      autofocus: true,
+                      validator: (text) {
+                        if (text == null || text.isEmpty) {
+                          return 'Username cannot be empty';
+                        }
+                        return null;
+                      },
+                    ),
+                    LoginFieldWidget(
+                      controller: passwordController,
+                      hintText: 'Password',
+                      obscureText: true,
+                      validator: (text) {
+                        if (text == null || text.isEmpty) {
+                          return 'Password cannot be empty';
+                        }
+                        return null;
+                      },
+                    ),
+                  ],
                 ),
-                LoginFieldWidget(
-                  controller: passwordController,
-                  hintText: 'Password',
-                  obscureText: true,
-                  validator: (text) {
-                    if (text == null || text.isEmpty) {
-                      return 'Password cannot be empty';
-                    }
-                    return null;
-                  },
-                ),
-              ],
-            ),
-            loginButtonText: 'Log in',
-            onSubmit: attemptLogin
+                loginButtonText: 'Log in',
+                onSubmit: attemptLogin
+              ),
+              const Padding(
+                padding: EdgeInsets.all(16),
+                child: LoginSaveCheckbox(),
+              ),
+            ]
           ),
-          const Padding(
-            padding: EdgeInsets.all(16),
-            child: LoginSaveCheckbox(),
-          ),
-        ]
+        ),
       );
     } else {
       return const LoadingSpinner();
