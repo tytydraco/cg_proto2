@@ -33,7 +33,7 @@ dependencies:
   shared_preferences: ^2.0.15
   artificial_delay: ^1.0.0
   intl: ^0.17.0
-  login_widget: ^0.0.5
+  login_widget: ^0.0.6
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
