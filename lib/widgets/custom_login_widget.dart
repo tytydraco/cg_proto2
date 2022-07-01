@@ -3,24 +3,27 @@ import 'package:cg_proto2/remote/auth/demo_remote_auth.dart';
 import 'package:cg_proto2/widgets/loading_spinner.dart';
 import 'package:cg_proto2/widgets/login_save_checkbox.dart';
 import 'package:flutter/material.dart';
+import 'package:login_widget/login_field_widget.dart';
+import 'package:login_widget/login_form_widget.dart';
+import 'package:login_widget/login_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// A dialog that handles user authentication with the remote server.
-class LoginWidget extends StatefulWidget {
+class CustomLoginWidget extends StatefulWidget {
   final Function onSuccess;
   final Function onFailed;
 
-  const LoginWidget({
+  const CustomLoginWidget({
     Key? key,
     required this.onSuccess,
     required this.onFailed
   }) : super(key: key);
 
   @override
-  State<LoginWidget> createState() => _LoginWidgetState();
+  State<CustomLoginWidget> createState() => _CustomLoginWidgetState();
 }
 
-class _LoginWidgetState extends State<LoginWidget> {
+class _CustomLoginWidgetState extends State<CustomLoginWidget> {
   final formKey = GlobalKey<FormState>();
   bool tryingAuthentication = false;
 
@@ -89,56 +92,44 @@ class _LoginWidgetState extends State<LoginWidget> {
   @override
   Widget build(BuildContext context) {
     if (!tryingAuthentication) {
-      return Form(
-        key: formKey,
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 4, bottom: 4),
-              child: TextFormField(
-                controller: usernameController,
-                decoration: const InputDecoration(
+      return Column(
+        children: [
+          LoginWidget(
+            form: LoginFormWidget(
+              formKey: formKey,
+              loginFields: [
+                LoginFieldWidget(
+                  controller: usernameController,
                   hintText: 'Username',
-                  border: OutlineInputBorder(),
+                  autofocus: true,
+                  validator: (text) {
+                    if (text == null || text.isEmpty) {
+                      return 'Username cannot be empty';
+                    }
+                    return null;
+                  },
                 ),
-                validator: (text) {
-                  if (text == null || text.isEmpty) {
-                    return 'Username cannot be empty';
-                  }
-                  return null;
-                },
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 4, bottom: 4),
-              child: TextFormField(
-                controller: passwordController,
-                decoration: const InputDecoration(
+                LoginFieldWidget(
+                  controller: passwordController,
                   hintText: 'Password',
-                  border: OutlineInputBorder(),
+                  obscureText: true,
+                  validator: (text) {
+                    if (text == null || text.isEmpty) {
+                      return 'Password cannot be empty';
+                    }
+                    return null;
+                  },
                 ),
-                obscureText: true,
-                validator: (text) {
-                  if (text == null || text.isEmpty) {
-                    return 'Password cannot be empty';
-                  }
-                  return null;
-                },
-              ),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: OutlinedButton(
-                onPressed: () => attemptLogin(),
-                child: const Text('Login'),
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.all(16),
-              child: LoginSaveCheckbox(),
-            ),
-          ],
-        ),
+            loginButtonText: 'Log in',
+            onSubmit: attemptLogin
+          ),
+          const Padding(
+            padding: EdgeInsets.all(16),
+            child: LoginSaveCheckbox(),
+          ),
+        ]
       );
     } else {
       return const LoadingSpinner();

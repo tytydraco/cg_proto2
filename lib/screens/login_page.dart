@@ -1,6 +1,6 @@
 import 'package:cg_proto2/screens/home_page.dart';
 import 'package:cg_proto2/widgets/login_error_text.dart';
-import 'package:cg_proto2/widgets/login_widget.dart';
+import 'package:cg_proto2/widgets/custom_login_widget.dart';
 import 'package:flutter/material.dart';
 
 /// Displays username and password authentication dialog.
@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           children: [
             LoginErrorText(show: hadError),
-            LoginWidget(
+            CustomLoginWidget(
               onSuccess: () {
                 hadError = false;
                 Navigator.push(
