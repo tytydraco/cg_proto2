@@ -5,7 +5,7 @@ import 'package:cg_proto2/remote/database/demo_remote_database.dart';
 import 'package:cg_proto2/remote/logic/site_assembler.dart';
 import 'package:cg_proto2/widgets/loading_spinner.dart';
 import 'package:cg_proto2/widgets/site_quick_info.dart';
-import 'package:cg_proto2/widgets/site_weather_chart.dart';
+import 'package:cg_proto2/widgets/chart/site_weather_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
