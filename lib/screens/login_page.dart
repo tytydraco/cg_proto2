@@ -12,9 +12,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  /// Is true if the user failed to login.
-  bool hadError = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,17 +23,12 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            LoginErrorText(show: hadError),
             CustomLoginWidget(
               onSuccess: () {
-                hadError = false;
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const HomePage()),
                 ).whenComplete(() => setState(() {}));
-              },
-              onFailed: () {
-                setState(() => hadError = true);
               },
             ),
           ]

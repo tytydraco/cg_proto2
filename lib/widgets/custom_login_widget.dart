@@ -1,6 +1,7 @@
 import 'package:cg_proto2/models/credential_model.dart';
 import 'package:cg_proto2/remote/auth/demo_remote_auth.dart';
 import 'package:cg_proto2/widgets/loading_spinner.dart';
+import 'package:cg_proto2/widgets/login_error_text.dart';
 import 'package:cg_proto2/widgets/login_save_checkbox.dart';
 import 'package:flutter/material.dart';
 import 'package:login_widget/login_field_widget.dart';
@@ -11,12 +12,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// A dialog that handles user authentication with the remote server.
 class CustomLoginWidget extends StatefulWidget {
   final Function onSuccess;
-  final Function onFailed;
 
   const CustomLoginWidget({
     Key? key,
     required this.onSuccess,
-    required this.onFailed
   }) : super(key: key);
 
   @override
@@ -26,6 +25,7 @@ class CustomLoginWidget extends StatefulWidget {
 class _CustomLoginWidgetState extends State<CustomLoginWidget> {
   final formKey = GlobalKey<FormState>();
   bool tryingAuthentication = false;
+  bool hadError = false;
 
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
@@ -58,6 +58,8 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
   }
 
   Future attemptLogin() async {
+    setState(() => hadError = false);
+
     if (formKey.currentState!.validate()) {
       setState(() => tryingAuthentication = true);
 
@@ -78,7 +80,8 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
         usernameController.text = '';
         passwordController.text = '';
         setSavedCredentials(CredentialModel('', ''));
-        widget.onFailed();
+
+        setState(() => hadError = true);
       }
     }
   }
@@ -97,6 +100,7 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
           constraints: const BoxConstraints(maxWidth: 300),
           child: Column(
             children: [
+              LoginErrorText(show: hadError),
               LoginWidget(
                 form: LoginFormWidget(
                   formKey: formKey,
