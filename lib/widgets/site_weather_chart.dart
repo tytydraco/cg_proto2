@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:cg_proto2/models/site_model.dart';
 import 'package:cg_proto2/models/site_weather_model.dart';
+import 'package:cg_proto2/widgets/chart/chart_title.dart';
 import 'package:cg_proto2/widgets/pref_visibility.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -73,20 +74,7 @@ class _SiteWeatherChartState extends State<SiteWeatherChart> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Align(
-                alignment: Alignment.center,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 12, bottom: 4),
-                  child: Text(
-                    widget.title,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: primaryColor,
-                    ),
-                  ),
-                ),
-              ),
+              ChartTitle(title: widget.title),
               Padding(
                 padding: const EdgeInsets.all(18),
                 child: AspectRatio(
