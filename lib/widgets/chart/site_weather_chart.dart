@@ -13,7 +13,7 @@ class SiteWeatherChart extends StatefulWidget {
   final String id;
   final String title;
   final SiteModel site;
-  final double Function(SiteWeatherModel) yFn;
+  final double Function(SiteWeatherModel) getValue;
   final List<SiteWeatherModel> data;
 
   const SiteWeatherChart({
@@ -21,7 +21,7 @@ class SiteWeatherChart extends StatefulWidget {
     required this.id,
     required this.title,
     required this.site,
-    required this.yFn,
+    required this.getValue,
     required this.data,
   }) : super(key: key);
 
@@ -65,7 +65,7 @@ class _SiteWeatherChartState extends State<SiteWeatherChart> {
     return widget.data.asMap().entries.map((entry) {
       final index = entry.key;
       final siteWeather = entry.value;
-      return FlSpot(index.toDouble(), widget.yFn(siteWeather));
+      return FlSpot(index.toDouble(), widget.getValue(siteWeather));
     }).toList();
   }
 
