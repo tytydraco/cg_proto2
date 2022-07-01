@@ -1,7 +1,5 @@
 import 'package:cg_proto2/models/credential_model.dart';
 import 'package:cg_proto2/remote/auth/demo_remote_auth.dart';
-import 'package:cg_proto2/widgets/loading_spinner.dart';
-import 'package:cg_proto2/widgets/login_error_text.dart';
 import 'package:cg_proto2/widgets/login_save_checkbox.dart';
 import 'package:flutter/material.dart';
 import 'package:login_widget/login_field_widget.dart';
@@ -24,8 +22,6 @@ class CustomLoginWidget extends StatefulWidget {
 
 class _CustomLoginWidgetState extends State<CustomLoginWidget> {
   final formKey = GlobalKey<FormState>();
-  bool tryingAuthentication = false;
-  bool hadError = false;
 
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
@@ -42,13 +38,13 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
     return CredentialModel(savedUsername, savedPassword);
   }
 
-  Future setSavedCredentials(CredentialModel credentials) async {
+  Future<void> setSavedCredentials(CredentialModel credentials) async {
     final sharedPrefs = await SharedPreferences.getInstance();
     sharedPrefs.setString('saved_username', credentials.username);
     sharedPrefs.setString('saved_password', credentials.password);
   }
 
-  Future importSavedCredentials() async {
+  Future<void> importSavedCredentials() async {
     final saveCredentials = await shouldSaveCredentials();
     if (saveCredentials) {
       final savedCredentials = await getSavedCredentials();
@@ -57,18 +53,14 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
     }
   }
 
-  Future attemptLogin() async {
-    setState(() => hadError = false);
-
+  Future<String?> attemptLogin() async {
     if (formKey.currentState!.validate()) {
-      setState(() => tryingAuthentication = true);
 
       final remoteAuth = DemoRemoteAuth();
       final credential = CredentialModel(
           usernameController.text, passwordController.text);
       final success = await remoteAuth.checkCredentials(credential);
 
-      setState(() => tryingAuthentication = false);
       if (success) {
         final saveCredentials = await shouldSaveCredentials();
         if (saveCredentials) {
@@ -81,9 +73,11 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
         passwordController.text = '';
         setSavedCredentials(CredentialModel('', ''));
 
-        setState(() => hadError = true);
+        return 'Authentication failed!';
       }
     }
+
+    return null;
   }
 
   @override
@@ -94,54 +88,50 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (!tryingAuthentication) {
-      return Center(
-        child: Container(
-          constraints: const BoxConstraints(maxWidth: 300),
-          child: Column(
+    return Center(
+      child: Container(
+        constraints: const BoxConstraints(maxWidth: 300),
+        child: Column(
             children: [
-              LoginErrorText(show: hadError),
               LoginWidget(
-                form: LoginFormWidget(
-                  formKey: formKey,
-                  loginFields: [
-                    LoginFieldWidget(
-                      controller: usernameController,
-                      hintText: 'Username',
-                      autofocus: true,
-                      validator: (text) {
-                        if (text == null || text.isEmpty) {
-                          return 'Username cannot be empty';
-                        }
-                        return null;
-                      },
-                    ),
-                    LoginFieldWidget(
-                      controller: passwordController,
-                      hintText: 'Password',
-                      obscureText: true,
-                      validator: (text) {
-                        if (text == null || text.isEmpty) {
-                          return 'Password cannot be empty';
-                        }
-                        return null;
-                      },
-                    ),
-                  ],
-                ),
-                loginButtonText: 'Log in',
-                onSubmit: attemptLogin
+                showLoadingSpinner: true,
+                  form: LoginFormWidget(
+                    formKey: formKey,
+                    loginFields: [
+                      LoginFieldWidget(
+                        controller: usernameController,
+                        hintText: 'Username',
+                        autofocus: true,
+                        validator: (text) {
+                          if (text == null || text.isEmpty) {
+                            return 'Username cannot be empty';
+                          }
+                          return null;
+                        },
+                      ),
+                      LoginFieldWidget(
+                        controller: passwordController,
+                        hintText: 'Password',
+                        obscureText: true,
+                        validator: (text) {
+                          if (text == null || text.isEmpty) {
+                            return 'Password cannot be empty';
+                          }
+                          return null;
+                        },
+                      ),
+                    ],
+                  ),
+                  loginButtonText: 'Log in',
+                  onSubmit: attemptLogin
               ),
               const Padding(
                 padding: EdgeInsets.all(16),
                 child: LoginSaveCheckbox(),
               ),
             ]
-          ),
         ),
-      );
-    } else {
-      return const LoadingSpinner();
-    }
+      ),
+    );
   }
 }
