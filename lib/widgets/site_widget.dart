@@ -11,11 +11,28 @@ class SiteWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Colors.blueGrey.shade400,
       margin: const EdgeInsets.only(left: 8, right: 8, top: 4, bottom: 4),
       child: InkWell(
         child: Padding(
-          padding: const EdgeInsets.all(18),
-          child: Text(site.id)
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                site.id,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
+                ),
+              ),
+              const Icon(
+                Icons.navigate_next,
+                color: Colors.white,
+              ),
+            ],
+          )
         ),
         onTap: () {
           Navigator.push(
