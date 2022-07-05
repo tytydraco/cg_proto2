@@ -30,7 +30,7 @@ class SiteWeatherChart extends StatefulWidget {
 }
 
 class _SiteWeatherChartState extends State<SiteWeatherChart> {
-  final todayDate = DateTime.now();
+  final _todayDate = DateTime.now();
 
   Widget _leftTitleWidget(double value, TitleMeta? _) {
     return Text(
@@ -57,7 +57,7 @@ class _SiteWeatherChartState extends State<SiteWeatherChart> {
   }
 
   String _dateFromDayIndex(int index) {
-    final thisDate = todayDate.subtract(Duration(days: widget.data.length - index));
+    final thisDate = _todayDate.subtract(Duration(days: widget.data.length - index));
     return DateFormat('M/d').format(thisDate);
   }
 

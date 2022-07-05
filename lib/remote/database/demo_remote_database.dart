@@ -5,6 +5,7 @@ import 'package:cg_proto2/remote/database/remote_database_implementation.dart';
 
 /// Offline demo implementation of the remote database using sample data.
 class DemoRemoteDatabase implements RemoteDatabaseImplementation {
+  final _random = Random();
   final _artificialDelay = ArtificialDelay(
     minDelay: const Duration(milliseconds: 100),
     maxDelay: const Duration(milliseconds: 1000),
@@ -34,15 +35,14 @@ class DemoRemoteDatabase implements RemoteDatabaseImplementation {
   @override
   Future<List<Map<String, dynamic>>> getHistoricalWeather(String siteName) async {
     await _artificialDelay.trigger();
-    final random = Random();
     return List.generate(30, (_) {
       return {
-        'temperature': 90 + random.nextInt(10) + 1,
-        'humidity': random.nextInt(100) + 1,
-        'rainfall': random.nextInt(20) + 1,
-        'windSpeed': random.nextInt(10) + 1,
-        'windDirection': random.nextInt(4),
-        'soilMoisture': random.nextInt(100),
+        'temperature': 90 + _random.nextInt(10) + 1,
+        'humidity': _random.nextInt(100) + 1,
+        'rainfall': _random.nextInt(20) + 1,
+        'windSpeed': _random.nextInt(10) + 1,
+        'windDirection': _random.nextInt(4),
+        'soilMoisture': _random.nextInt(100),
       };
     });
   }

@@ -5,7 +5,7 @@ class SiteWeatherStat extends StatelessWidget {
   final String text;
   final String? unit;
 
-  final textColor = Colors.white;
+  final _textColor = Colors.white;
 
   const SiteWeatherStat({
     Key? key,
@@ -18,7 +18,7 @@ class SiteWeatherStat extends StatelessWidget {
   Widget build(BuildContext context) {
     final contentText = unit == null ? text : '$text $unit';
     return Padding(
-      padding: const EdgeInsets.only(left: 8, right: 8, top: 4, bottom: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -28,14 +28,14 @@ class SiteWeatherStat extends StatelessWidget {
             style: TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 16,
-              color: textColor,
+              color: _textColor,
             ),
           ),
           Text(
             contentText,
             style: TextStyle(
               fontSize: 16,
-              color: textColor,
+              color: _textColor,
             ),
           ),
         ],

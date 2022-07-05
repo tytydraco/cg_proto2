@@ -1,5 +1,4 @@
 import 'package:cg_proto2/screens/home_page.dart';
-import 'package:cg_proto2/widgets/login_error_text.dart';
 import 'package:cg_proto2/widgets/custom_login_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const HomePage()),
-                ).whenComplete(() => setState(() {}));
+                );
               },
             ),
           ]

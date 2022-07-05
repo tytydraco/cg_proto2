@@ -19,12 +19,12 @@ class ChartIntervalDropDown extends StatefulWidget {
 }
 
 class _ChartIntervalDropDownState extends State<ChartIntervalDropDown> {
-  Future<int> getInterval() async {
+  Future<int> _getInterval() async {
     final sharedPrefs = await SharedPreferences.getInstance();
     return sharedPrefs.getInt('${widget.site.id}_interval') ?? chartIntervalDefault;
   }
 
-  Future setInterval(int newValue) async {
+  Future _setInterval(int newValue) async {
     final sharedPrefs = await SharedPreferences.getInstance();
     return sharedPrefs.setInt('${widget.site.id}_interval', newValue);
   }
@@ -41,7 +41,7 @@ class _ChartIntervalDropDownState extends State<ChartIntervalDropDown> {
               child: Text('Chart interval'),
             ),
             FutureBuilder(
-              future: getInterval(),
+              future: _getInterval(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   final interval = snapshot.data as int;
@@ -54,7 +54,7 @@ class _ChartIntervalDropDownState extends State<ChartIntervalDropDown> {
                       )
                     ).toList(),
                     onChanged: (newValue) {
-                      setInterval(newValue as int);
+                      _setInterval(newValue as int);
                       setState(() {});
                     },
                   );

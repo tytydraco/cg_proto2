@@ -12,10 +12,6 @@ class DemoRemoteAuth implements RemoteAuthImplementation {
   @override
   Future<bool> checkCredentials(CredentialModel credentials) async {
     await _artificialDelay.trigger();
-    if (credentials.username == 'test' && credentials.password == 'test') {
-      return true;
-    } else {
-      return false;
-    }
+    return credentials.username == 'test' && credentials.password == 'test';
   }
 }

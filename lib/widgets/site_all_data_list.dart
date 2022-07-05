@@ -22,25 +22,25 @@ class SiteAllDataList extends StatefulWidget {
 }
 
 class _SiteAllDataListState extends State<SiteAllDataList> {
-  final siteAssembler = SiteAssembler();
-  final remoteDatabase = DemoRemoteDatabase();
+  final _siteAssembler = SiteAssembler();
+  final _remoteDatabase = DemoRemoteDatabase();
 
-  Future<int> daysToShow() async {
+  Future<int> _daysToShow() async {
     final sharedPrefs = await SharedPreferences.getInstance();
     return sharedPrefs.getInt('${widget.site.id}_interval') ?? chartIntervalDefault;
   }
 
-  Future<List<SiteWeatherModel>> getHistoricalWeather() async {
-    final length = await daysToShow();
-    final rawSiteWeathers = await remoteDatabase.getHistoricalWeather(widget.site.id);
-    final siteWeathers = siteAssembler.getHistoricalWeather(rawSiteWeathers);
+  Future<List<SiteWeatherModel>> _getHistoricalWeather() async {
+    final length = await _daysToShow();
+    final rawSiteWeathers = await _remoteDatabase.getHistoricalWeather(widget.site.id);
+    final siteWeathers = _siteAssembler.getHistoricalWeather(rawSiteWeathers);
     return siteWeathers.reversed.take(length).toList();
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: getHistoricalWeather(),
+      future: _getHistoricalWeather(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final data = snapshot.data as List<SiteWeatherModel>;

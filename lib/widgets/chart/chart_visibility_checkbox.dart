@@ -22,12 +22,12 @@ class ChartVisibilityCheckbox extends StatefulWidget {
 }
 
 class _ChartVisibilityCheckboxState extends State<ChartVisibilityCheckbox> {
-  Future<bool> getChecked() async {
+  Future<bool> _getChecked() async {
     final sharedPrefs = await SharedPreferences.getInstance();
     return sharedPrefs.getBool('${widget.site.id}_${widget.id}') ?? true;
   }
 
-  Future setChecked(bool newValue) async {
+  Future _setChecked(bool newValue) async {
     final sharedPrefs = await SharedPreferences.getInstance();
     return sharedPrefs.setBool('${widget.site.id}_${widget.id}', newValue);
   }
@@ -39,7 +39,7 @@ class _ChartVisibilityCheckboxState extends State<ChartVisibilityCheckbox> {
       child: Padding(
         padding: const EdgeInsets.all(8),
         child: FutureBuilder(
-          future: getChecked(),
+          future: _getChecked(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final checked = snapshot.data as bool;
@@ -47,7 +47,7 @@ class _ChartVisibilityCheckboxState extends State<ChartVisibilityCheckbox> {
                 title: Text(widget.title),
                 value: checked,
                 onChanged: (newValue) {
-                  setChecked(newValue!);
+                  _setChecked(newValue!);
                   setState(() {});
                 }
               );

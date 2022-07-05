@@ -18,7 +18,7 @@ class PrefVisibility extends StatefulWidget {
 }
 
 class _PrefVisibilityState extends State<PrefVisibility> {
-  Future<bool> isVisible() async {
+  Future<bool> _isVisible() async {
     final sharedPrefs = await SharedPreferences.getInstance();
     return sharedPrefs.getBool(widget.prefKey) ?? true;
   }
@@ -26,7 +26,7 @@ class _PrefVisibilityState extends State<PrefVisibility> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: isVisible(),
+      future: _isVisible(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final isVisible = snapshot.data as bool;

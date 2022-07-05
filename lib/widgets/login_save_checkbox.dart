@@ -11,12 +11,12 @@ class LoginSaveCheckbox extends StatefulWidget {
 }
 
 class _LoginSaveCheckboxState extends State<LoginSaveCheckbox> {
-  Future<bool> getChecked() async {
+  Future<bool> _getChecked() async {
     final sharedPrefs = await SharedPreferences.getInstance();
     return sharedPrefs.getBool('save_credentials') ?? false;
   }
 
-  Future setChecked(bool newState) async {
+  Future _setChecked(bool newState) async {
     final sharedPrefs = await SharedPreferences.getInstance();
     sharedPrefs.setBool('save_credentials', newState);
   }
@@ -25,7 +25,7 @@ class _LoginSaveCheckboxState extends State<LoginSaveCheckbox> {
   Widget build(BuildContext context) {
     return FutureBuilder(
       initialData: false,
-      future: getChecked(),
+      future: _getChecked(),
       builder: (context, snapshot) {
         final checked = snapshot.data as bool;
         if (snapshot.hasData) {
@@ -33,7 +33,7 @@ class _LoginSaveCheckboxState extends State<LoginSaveCheckbox> {
             title: const Text('Save credentials'),
             value: checked,
             onChanged: (state) {
-              setChecked(state!);
+              _setChecked(state!);
               setState(() {});
             }
           );

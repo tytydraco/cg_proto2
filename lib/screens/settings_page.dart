@@ -4,16 +4,11 @@ import 'package:cg_proto2/widgets/chart/chart_visibility_checkbox.dart';
 import 'package:flutter/material.dart';
 
 /// Displays site-specific settings.
-class SettingsPage extends StatefulWidget {
+class SettingsPage extends StatelessWidget {
   final SiteModel site;
 
   const SettingsPage({Key? key, required this.site}) : super(key: key);
 
-  @override
-  State<SettingsPage> createState() => _SettingsPageState();
-}
-
-class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,26 +17,26 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
       body: ListView(
         children: [
-          ChartIntervalDropDown(site: widget.site),
+          ChartIntervalDropDown(site: site),
           ChartVisibilityCheckbox(
-            site: widget.site,
-            id: 'temperature',
-            title: 'Temperature'
+              site: site,
+              id: 'temperature',
+              title: 'Temperature'
           ),
           ChartVisibilityCheckbox(
-            site: widget.site,
-            id: 'wind_speed',
-            title: 'Wind Speed'
+              site: site,
+              id: 'wind_speed',
+              title: 'Wind Speed'
           ),
           ChartVisibilityCheckbox(
-            site: widget.site,
-            id: 'rainfall',
-            title: 'Rainfall'
+              site: site,
+              id: 'rainfall',
+              title: 'Rainfall'
           ),
           ChartVisibilityCheckbox(
-            site: widget.site,
-            id: 'soil_moisture',
-            title: 'Soil Moisture'
+              site: site,
+              id: 'soil_moisture',
+              title: 'Soil Moisture'
           ),
         ],
       ),

@@ -13,19 +13,19 @@ class SiteListView extends StatefulWidget {
 }
 
 class _SiteListViewState extends State<SiteListView> {
-  final siteAssembler = SiteAssembler();
-  final remoteDatabase = DemoRemoteDatabase();
+  final _siteAssembler = SiteAssembler();
+  final _remoteDatabase = DemoRemoteDatabase();
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: remoteDatabase.getEntries(),
+      future: _remoteDatabase.getEntries(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final rawSiteList = snapshot.data as List<Map<String, dynamic>>;
-          final siteList = siteAssembler.getEntries(rawSiteList);
+          final siteList = _siteAssembler.getEntries(rawSiteList);
           return ListView.builder(
-            padding: const EdgeInsets.only(top: 4, bottom: 4),
+            padding: const EdgeInsets.symmetric(vertical: 4),
             itemCount: siteList.length,
             itemBuilder: (context, index) {
               final site = siteList[index];
